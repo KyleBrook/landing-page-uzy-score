@@ -1,22 +1,6 @@
-import { Building, Users, FileText, Scale, Globe, DollarSign, Shield, TrendingUp, Database, Briefcase, CreditCard, AlertTriangle } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import CircularDataSources from './CircularDataSources';
 
 const DataSourcesSection = () => {
-  const dataSources = [
-    { icon: Building, label: 'Dados da Empresa', color: 'text-emerald-600' },
-    { icon: Users, label: 'Participações', color: 'text-blue-600' },
-    { icon: FileText, label: 'QSA - Quadro Societário', color: 'text-purple-600' },
-    { icon: CreditCard, label: 'Integração com bureaus de crédito', color: 'text-orange-600' },
-    { icon: DollarSign, label: 'Dados econômicos financeiros', color: 'text-cyan-600' },
-    { icon: Database, label: 'BNDES', color: 'text-green-600' },
-    { icon: AlertTriangle, label: 'Recuperação judicial e falências', color: 'text-red-600' },
-    { icon: Shield, label: 'Procon', color: 'text-yellow-600' },
-    { icon: Scale, label: 'Fiscal - Tributária - CND', color: 'text-indigo-600' },
-    { icon: Globe, label: 'Sanções Nacionais e Internacionais', color: 'text-pink-600' },
-    { icon: FileText, label: 'Relação de cartórios - Protesto', color: 'text-teal-600' },
-    { icon: Briefcase, label: 'Trabalho escravo', color: 'text-rose-600' }
-  ];
-
   return (
     <section className="py-20">
       <div className="text-center mb-16">
@@ -26,56 +10,42 @@ const DataSourcesSection = () => {
           <br />
           para sua gestão de crédito
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
           Através da consulta de CNPJ ou nome de empresa, é possível ter de forma organizada todos os dados 
           necessários para realizar a sua análise de crédito completa com mais agilidade e monitorar sua carteira!
         </p>
       </div>
 
-      <Card className="border-0 shadow-lg relative overflow-hidden">
-        <CardContent className="p-12">
-          {/* Background decoration */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="w-full h-full bg-gradient-to-br from-emerald-600/20 via-blue-600/20 to-purple-600/20"></div>
-          </div>
-          
-          <div className="relative z-10">
-            {/* Central hub */}
-            <div className="flex items-center justify-center mb-12">
-              <div className="w-48 h-48 bg-gradient-to-br from-emerald-100 to-blue-100 rounded-full flex items-center justify-center border-2 border-emerald-200">
-                <div className="text-center">
-                  <Database className="w-12 h-12 text-emerald-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">+400</div>
-                  <div className="text-gray-600 text-sm">fontes</div>
-                </div>
-              </div>
-            </div>
+      <div className="mb-16">
+        <CircularDataSources />
+      </div>
 
-            {/* Data sources grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {dataSources.map((source, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center text-center p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-all duration-300 border border-gray-100"
-                >
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-3 shadow-sm">
-                    <source.icon className={`w-6 h-6 ${source.color}`} />
-                  </div>
-                  <span className="text-gray-700 text-sm font-medium leading-tight">
-                    {source.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <p className="text-2xl font-bold text-gray-900">
-                Acesse essas e <span className="text-emerald-600">mais de 400 fontes</span> de dados.
-              </p>
-            </div>
+      {/* Seção adicional com estatísticas */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl font-bold text-emerald-600">+400</span>
           </div>
-        </CardContent>
-      </Card>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Fontes de Dados</h3>
+          <p className="text-gray-600">Integração com as principais bases de dados do país</p>
+        </div>
+
+        <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl font-bold text-blue-600">98%</span>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Precisão</h3>
+          <p className="text-gray-600">Análises com alta precisão usando inteligência artificial</p>
+        </div>
+
+        <div className="text-center p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl font-bold text-purple-600">5s</span>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Velocidade</h3>
+          <p className="text-gray-600">Análises completas em apenas 5 segundos</p>
+        </div>
+      </div>
     </section>
   );
 };

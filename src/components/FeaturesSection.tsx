@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Brain, Database, Eye, Workflow, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import IsometricIllustration from './IsometricIllustration';
 
 const FeaturesSection = () => {
   const [activeTab, setActiveTab] = useState('motor');
@@ -48,8 +49,7 @@ const FeaturesSection = () => {
         'Integração com principais bureaus de crédito',
         'Parametrização personalizável por empresa',
         'Histórico completo e auditoria de decisões'
-      ],
-      illustration: '🚀'
+      ]
     },
     plataforma: {
       title: 'Plataforma Big Data + IA',
@@ -61,8 +61,7 @@ const FeaturesSection = () => {
         'Dashboard em tempo real e personalizável',
         'Relatórios detalhados e exportáveis',
         'API robusta para integração completa'
-      ],
-      illustration: '🧠'
+      ]
     },
     monitoramento: {
       title: 'Monitoramento inteligente',
@@ -74,8 +73,7 @@ const FeaturesSection = () => {
         'Análise comportamental avançada',
         'Relatórios de performance detalhados',
         'Gestão dinâmica de limites de crédito'
-      ],
-      illustration: '👁️'
+      ]
     },
     workflow: {
       title: 'Workflow automatizado',
@@ -87,8 +85,7 @@ const FeaturesSection = () => {
         'Notificações inteligentes e direcionadas',
         'Auditoria completa de todos os processos',
         'Integração nativa com sistemas existentes'
-      ],
-      illustration: '⚡'
+      ]
     }
   };
 
@@ -167,9 +164,7 @@ const FeaturesSection = () => {
             </div>
             
             <div className="flex items-center justify-center">
-              <div className="w-96 h-96 bg-gradient-to-br from-emerald-100 to-blue-100 rounded-3xl flex items-center justify-center border border-gray-200 shadow-xl">
-                <div className="text-9xl">{currentContent.illustration}</div>
-              </div>
+              <IsometricIllustration />
             </div>
           </div>
         </CardContent>
