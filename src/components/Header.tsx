@@ -11,9 +11,9 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-emerald-400 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+                <span className="text-white font-bold text-sm">Z</span>
               </div>
-              <span className="text-white font-bold text-xl">ScoreFy</span>
+              <span className="text-white font-bold text-xl">ZEKDATA</span>
             </div>
           </div>
           

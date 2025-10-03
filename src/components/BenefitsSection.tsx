@@ -57,7 +57,7 @@ const BenefitsSection = () => {
     <section className="py-24 bg-gray-50">
       <div className="text-center mb-20">
         <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 rounded-full px-4 py-2 mb-6">
-          <span className="text-sm font-medium">Por que escolher o ScoreFy?</span>
+          <span className="text-sm font-medium">Por que escolher a ZEKDATA?</span>
         </div>
         <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
           Análises que levavam <span className="text-emerald-600">dias</span>

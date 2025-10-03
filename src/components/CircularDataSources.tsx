@@ -65,7 +65,7 @@ const CircularDataSources = () => {
           Plataforma
         </text>
         <text x={centerX} y={centerY + 10} textAnchor="middle" className="fill-white text-lg font-bold">
-          ScoreFy
+          ZEKDATA
         </text>
       </svg>
 
