@@ -8,13 +8,13 @@ const Header = () => {
     <header className="sticky top-0 z-50 p-4">
       <GlassCard className="p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-emerald-400 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">Z</span>
-              </div>
-              <span className="text-white font-bold text-xl">ZEKDATA</span>
-            </div>
+          <div className="flex items-center gap-3">
+            <img
+              src="/branding/uzy-score-logo.png"
+              alt="Uzy Score"
+              className="h-8 w-auto"
+            />
+            <span className="sr-only">Uzy Score</span>
           </div>
           
           <div className="flex-1 max-w-md mx-8">

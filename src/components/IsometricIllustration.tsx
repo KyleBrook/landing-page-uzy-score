@@ -39,7 +39,7 @@ const IsometricIllustration = () => {
             <div className="absolute -top-32 left-4 w-72 h-44 bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-lg shadow-xl">
               <div className="p-4 h-full flex flex-col justify-center items-center text-white">
                 <Brain className="w-12 h-12 mb-2" />
-                <div className="text-sm font-medium">ZEKDATA IA</div>
+                <div className="text-sm font-medium">Uzy Score IA</div>
                 <div className="text-xs opacity-80">Análise em tempo real</div>
               </div>
             </div>
