@@ -11,30 +11,22 @@ const FeaturesSection = () => {
     { 
       id: 'motor', 
       label: 'Motor de crédito', 
-      icon: Brain,
-      color: 'text-emerald-600',
-      bgColor: 'bg-emerald-50'
+      icon: Brain
     },
     { 
       id: 'plataforma', 
       label: 'Plataforma Big Data + IA', 
-      icon: Database,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      icon: Database
     },
     { 
       id: 'monitoramento', 
       label: 'Monitoramento de carteira', 
-      icon: Eye,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
+      icon: Eye
     },
     { 
       id: 'workflow', 
       label: 'Workflow de crédito', 
-      icon: Workflow,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50'
+      icon: Workflow
     }
   ];
 
@@ -93,69 +85,72 @@ const FeaturesSection = () => {
   const currentTab = tabs.find(tab => tab.id === activeTab);
 
   return (
-    <section className="py-24">
-      <div className="text-center mb-20">
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
+    <section className="py-20">
+      <div className="text-center mb-14">
+        <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-6">
           <span className="text-white/90 text-sm font-medium">Dados profundos para decisões melhores</span>
         </div>
-        <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
+        <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
           Reduza prejuízos com
           <br />
-          <span className="text-emerald-400">Banco Central + birôs + IA</span>
+          <span className="text-purple-400">Banco Central + birôs + IA</span>
         </h2>
-        <p className="text-xl text-white/80 max-w-3xl mx-auto">
+        <p className="text-lg text-white/70 max-w-3xl mx-auto">
           O que você precisa ver, em segundos — pelo menor custo por consulta.
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-4 mb-16">
-        {tabs.map((tab) => (
-          <Button
-            key={tab.id}
-            variant={activeTab === tab.id ? "default" : "outline"}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-8 py-4 rounded-2xl transition-all duration-300 text-lg ${
-              activeTab === tab.id
-                ? 'bg-white text-gray-900 shadow-xl hover:shadow-2xl'
-                : 'bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm'
-            }`}
-          >
-            <tab.icon className="w-6 h-6 mr-3" />
-            {tab.label}
-          </Button>
-        ))}
+      <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <Button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-6 py-3 rounded-xl transition-all duration-300 text-sm ${
+                isActive
+                  ? 'bg-purple-600 hover:bg-purple-700 text-white shadow'
+                  : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
+              }`}
+              variant="ghost"
+            >
+              <tab.icon className="w-5 h-5 mr-2" />
+              {tab.label}
+            </Button>
+          );
+        })}
       </div>
 
-      <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
-        <CardContent className="p-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <Card className="bg-neutral-900 border border-neutral-800">
+        <CardContent className="p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className={`w-16 h-16 rounded-2xl ${currentTab?.bgColor} flex items-center justify-center`}>
-                  {currentTab && <currentTab.icon className={`w-8 h-8 ${currentTab.color}`} />}
+                <div className="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                  {currentTab && <currentTab.icon className="w-7 h-7 text-purple-400" />}
                 </div>
                 <div>
-                  <h3 className="text-4xl font-bold text-gray-900">{currentContent.title}</h3>
-                  <p className="text-xl text-gray-600 mt-2">{currentContent.subtitle}</p>
+                  <h3 className="text-3xl font-bold text-white">{currentContent.title}</h3>
+                  <p className="text-lg text-white/70 mt-1">{currentContent.subtitle}</p>
                 </div>
               </div>
               
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+              <p className="text-base text-white/80 mb-6 leading-relaxed">
                 {currentContent.description}
               </p>
               
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {currentContent.features.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-purple-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-4 h-4 text-purple-400" />
                     </div>
-                    <span className="text-gray-700 text-lg">{feature}</span>
+                    <span className="text-white/80">{feature}</span>
                   </div>
                 ))}
               </div>
 
-              <Button className="mt-8 bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white px-8 py-4 rounded-xl text-lg">
+              <Button className="mt-6 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg">
                 Saiba mais
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>

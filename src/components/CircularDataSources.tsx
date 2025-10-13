@@ -1,32 +1,32 @@
-import { Building, Users, FileText, Scale, Globe, DollarSign, Shield, Database, Briefcase, CreditCard, AlertTriangle, Eye } from 'lucide-react';
+import { Building, Users, FileText, Scale, Globe, DollarSign, Shield, Database, Briefcase, CreditCard, AlertTriangle } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const CircularDataSources = () => {
   const isMobile = useIsMobile();
-  const size = isMobile ? 360 : 500; // tamanho do canvas do diagrama
+  const size = isMobile ? 360 : 500;
   const centerX = size / 2;
   const centerY = size / 2;
-  const radius = size / 2 - 60; // raio para posicionamento dos ícones
+  const radius = size / 2 - 60;
 
   const ringRadii = [size * 0.16, size * 0.24, size * 0.32];
 
   const dataSources = [
-    { icon: Building, label: 'Dados da Empresa', angle: 0, color: 'bg-emerald-500' },
-    { icon: Users, label: 'Participações', angle: 30, color: 'bg-blue-500' },
-    { icon: FileText, label: 'QSA - Quadro Societário', angle: 60, color: 'bg-purple-500' },
-    { icon: CreditCard, label: 'Integração com bureaus de crédito', angle: 90, color: 'bg-orange-500' },
-    { icon: DollarSign, label: 'Dados econômicos financeiros', angle: 120, color: 'bg-cyan-500' },
-    { icon: Database, label: 'BNDES', angle: 150, color: 'bg-green-500' },
-    { icon: AlertTriangle, label: 'Recuperação judicial e falências', angle: 180, color: 'bg-red-500' },
-    { icon: Shield, label: 'Procon', angle: 210, color: 'bg-yellow-500' },
-    { icon: Scale, label: 'Fiscal - Tributária - CND', angle: 240, color: 'bg-indigo-500' },
-    { icon: Globe, label: 'Sanções Nacionais e Internacionais', angle: 270, color: 'bg-pink-500' },
-    { icon: FileText, label: 'Relação de cartórios - Protesto', angle: 300, color: 'bg-teal-500' },
-    { icon: Briefcase, label: 'Trabalho escravo', angle: 330, color: 'bg-rose-500' }
-  ].sort((a, b) => a.angle - b.angle); // garante ordem estável no círculo
+    { icon: Building, label: 'Dados da Empresa', angle: 0 },
+    { icon: Users, label: 'Participações', angle: 30 },
+    { icon: FileText, label: 'QSA - Quadro Societário', angle: 60 },
+    { icon: CreditCard, label: 'Integração com bureaus de crédito', angle: 90 },
+    { icon: DollarSign, label: 'Dados econômicos financeiros', angle: 120 },
+    { icon: Database, label: 'BNDES', angle: 150 },
+    { icon: AlertTriangle, label: 'Recuperação judicial e falências', angle: 180 },
+    { icon: Shield, label: 'Procon', angle: 210 },
+    { icon: Scale, label: 'Fiscal - Tributária - CND', angle: 240 },
+    { icon: Globe, label: 'Sanções Nacionais e Internacionais', angle: 270 },
+    { icon: FileText, label: 'Relação de cartórios - Protesto', angle: 300 },
+    { icon: Briefcase, label: 'Trabalho escravo', angle: 330 }
+  ].sort((a, b) => a.angle - b.angle);
 
   return (
-    <div className="relative w-full min-h-[500px] flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl overflow-hidden py-8">
+    <div className="relative w-full min-h-[500px] flex items-center justify-center bg-neutral-950 rounded-3xl overflow-hidden py-8">
       {/* Grid de fundo */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -35,11 +35,10 @@ const CircularDataSources = () => {
               <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" strokeWidth="1"/>
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#circularGrid)" className="text-emerald-300" />
+          <rect width="100%" height="100%" fill="url(#circularGrid)" className="text-purple-300" />
         </svg>
       </div>
 
-      {/* Canvas central fixo: SVG + ícones posicionados dentro dele */}
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="relative z-10">
           {/* Círculos concêntricos */}
@@ -52,12 +51,12 @@ const CircularDataSources = () => {
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
-              className="text-emerald-300 opacity-20"
+              className="text-purple-300 opacity-20"
             />
           ))}
 
           {/* Centro da plataforma */}
-          <circle cx={centerX} cy={centerY} r={size * 0.12} className="fill-emerald-500 opacity-90" />
+          <circle cx={centerX} cy={centerY} r={size * 0.12} className="fill-purple-700 opacity-90" />
           <text x={centerX} y={centerY - 10} textAnchor="middle" className="fill-white text-lg font-bold">
             Plataforma
           </text>
@@ -66,7 +65,7 @@ const CircularDataSources = () => {
           </text>
         </svg>
 
-        {/* Ícones posicionados ao redor do centro - dentro do mesmo canvas */}
+        {/* Ícones */}
         {dataSources.map((source, index) => {
           const rad = ((source.angle - 90) * Math.PI) / 180;
           const x = centerX + Math.cos(rad) * radius;
@@ -79,7 +78,7 @@ const CircularDataSources = () => {
               style={{ left: x, top: y }}
             >
               <div className="flex items-center gap-3 group">
-                <div className={`w-12 h-12 ${source.color} rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <source.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -94,7 +93,7 @@ const CircularDataSources = () => {
       {/* Texto inferior */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
         <p className="text-white text-lg font-medium">
-          Acesse essas e <span className="text-emerald-400 font-bold">mais de 400 fontes</span> de dados.
+          Acesse essas e <span className="text-purple-300 font-bold">mais de 400 fontes</span> de dados.
         </p>
       </div>
     </div>

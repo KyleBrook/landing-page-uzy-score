@@ -83,116 +83,82 @@ const Index = () => {
     }
   ];
 
-  const handleSearch = (searchCpf: string) => {
+  const handleSearch = (_searchCpf: string) => {
     setShowResults(true);
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0b0b0f]">
       {!showResults ? (
         <>
-          {/* Hero Section - com background da marca */}
-          <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative">
-            {/* Background enviado */}
+          {/* Hero Section - fundo escuro com imagem sutil da marca */}
+          <div className="relative">
+            {/* Background enviado (suavizado) */}
             <div className="absolute inset-0">
               <img
                 src="/branding/bg-fundo.png"
                 alt=""
-                className="w-full h-full object-cover opacity-60"
+                className="w-full h-full object-cover opacity-30"
               />
             </div>
 
-            {/* Overlay de pattern */}
-            <div className="absolute inset-0 opacity-20">
-              <div
-                className="w-full h-full bg-repeat"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                }}
-              ></div>
-            </div>
+            {/* Overlay sutil (sem degradê colorido) */}
+            <div className="absolute inset-0 bg-black/40"></div>
             
             <Header />
             
             <div className="container mx-auto px-4 pb-10 relative z-10">
               <HeroSection onSearch={handleSearch} cpf={cpf} setCpf={setCpf} />
-
-              {/* Banner da marca */}
-              <div className="mt-10">
-                <img
-                  src="/branding/banner-1.png"
-                  alt="Uzy Score - Banner"
-                  className="w-full rounded-2xl border border-white/20 shadow-2xl"
-                />
-              </div>
             </div>
           </div>
 
           {/* Seção de copy direta */}
-          <div className="bg-white">
+          <div className="bg-[#0b0b0f]">
             <div className="container mx-auto px-4">
               <EmotionalCopy />
             </div>
           </div>
 
-          {/* Benefits Section - Branco */}
-          <div className="bg-white">
+          {/* Benefits Section - Dark */}
+          <div className="bg-[#0b0b0f]">
             <div className="container mx-auto px-4">
               <BenefitsSection />
             </div>
           </div>
 
-          {/* Features Section - Gradiente */}
-          <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative">
-            <div className="absolute inset-0 opacity-20">
-              <div className="w-full h-full bg-repeat" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-              }}></div>
-            </div>
-            
-            <div className="container mx-auto px-4 relative z-10">
+          {/* Features Section - Dark sem degradê fora da paleta */}
+          <div className="bg-[#0b0b0f]">
+            <div className="container mx-auto px-4">
               <FeaturesSection />
             </div>
           </div>
 
-          {/* Data Sources Section - Branco */}
-          <div className="bg-white">
+          {/* Data Sources Section - Dark */}
+          <div className="bg-[#0b0b0f]">
             <div className="container mx-auto px-4">
               <DataSourcesSection />
             </div>
           </div>
 
-          {/* Importance Section - Gradiente */}
-          <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative">
-            <div className="absolute inset-0 opacity-20">
-              <div className="w-full h-full bg-repeat" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-              }}></div>
-            </div>
-            
-            <div className="container mx-auto px-4 relative z-10">
+          {/* Importance Section - Dark */}
+          <div className="bg-[#0b0b0f]">
+            <div className="container mx-auto px-4">
               <ImportanceSection />
             </div>
           </div>
 
-          {/* Pricing Section - Branco */}
-          <div className="bg-white">
+          {/* Pricing Section - deixamos como contraste claro controlado */}
+          <div className="bg-[#0b0b0f]">
             <div className="container mx-auto px-4">
               <PricingSection />
             </div>
           </div>
         </>
       ) : (
-        // Tela de resultados - Gradiente
-        <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
-          <div className="absolute inset-0 opacity-20">
-            <div className="w-full h-full bg-repeat" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-            }}></div>
-          </div>
-          
+        // Tela de resultados - Dark
+        <div className="relative min-h-screen">
+          <div className="absolute inset-0 bg-[#0b0b0f]" />
           <Header />
-          
           <div className="container mx-auto px-4 pb-8 relative z-10">
             <div className="space-y-6 pt-8">
               {/* Score Principal */}
@@ -202,7 +168,7 @@ const Index = () => {
                     <h2 className="text-2xl font-bold text-white mb-6">Análise Completa</h2>
                     <ScoreCircle score={742} size="lg" className="mx-auto mb-6" />
                     <div className="space-y-2">
-                      <p className="text-emerald-400 font-semibold">Score Bom</p>
+                      <p className="text-purple-400 font-semibold">Score Bom</p>
                       <p className="text-white/70 text-sm">
                         Análise baseada em IA e Big Data
                       </p>
@@ -228,7 +194,7 @@ const Index = () => {
                 </h3>
                 <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                   <p className="text-white/90 leading-relaxed">
-                    <strong className="text-emerald-400">Resumo da Análise:</strong> O perfil analisado apresenta 
+                    <strong className="text-purple-400">Resumo da Análise:</strong> O perfil analisado apresenta 
                     características de baixo risco creditício. Com score de 742 pontos e histórico de pagamentos 
                     consistente, recomenda-se aprovação para operações de crédito de até R$ 50.000. 
                     A probabilidade de inadimplência calculada é de apenas 2.3%, significativamente abaixo 
