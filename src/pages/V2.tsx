@@ -1,213 +1,69 @@
-import { useState } from 'react';
-import Header from '@/components/Header';
-import HeroSection from '@/components/HeroSection';
-import BenefitsSection from '@/components/BenefitsSection';
-import FeaturesSection from '@/components/FeaturesSection';
-import DataSourcesSection from '@/components/DataSourcesSection';
-import ImportanceSection from '@/components/ImportanceSection';
-import GlassCard from '@/components/GlassCard';
-import ScoreCircle from '@/components/ScoreCircle';
-import CreditAnalysis from '@/components/CreditAnalysis';
-import CreditHistory from '@/components/CreditHistory';
-import QuickActions from '@/components/QuickActions';
-import PricingSection from '@/components/PricingSection';
-import EmotionalCopy from '@/components/EmotionalCopy';
-import { Button } from '@/components/ui/button';
+import { HeaderV2, HeroV2, FeatureGridV2, TestimonialsV2, FooterV2, FloatingContact } from "../components/v2";
+import { Button } from "@/components/ui/button";
 
 const V2 = () => {
-  const [cpf, setCpf] = useState('');
-  const [showResults, setShowResults] = useState(false);
-
-  const creditFactors = [
-    {
-      name: 'Score SCR',
-      value: '742 pontos',
-      impact: 'positive' as const,
-      description: 'Score do Sistema de Informações de Crédito do Banco Central'
-    },
-    {
-      name: 'Classificação de Risco',
-      value: 'Baixo Risco',
-      impact: 'positive' as const,
-      description: 'Classificação baseada em análise de múltiplas variáveis'
-    },
-    {
-      name: 'Análise de Inadimplência',
-      value: '2.3% probabilidade',
-      impact: 'positive' as const,
-      description: 'Probabilidade de inadimplência nos próximos 12 meses'
-    },
-    {
-      name: 'Composição da Carteira',
-      value: '65% cartão, 35% financiamentos',
-      impact: 'neutral' as const,
-      description: 'Distribuição dos tipos de crédito utilizados'
-    },
-    {
-      name: 'Consultas Recentes',
-      value: '3 nos últimos 6 meses',
-      impact: 'negative' as const,
-      description: 'Número de consultas ao CPF por instituições financeiras'
-    }
-  ];
-
-  const creditHistory = [
-    {
-      date: '15/12/2024',
-      type: 'Cartão de Crédito',
-      amount: 'R$ 2.450,00',
-      status: 'paid' as const,
-      institution: 'Banco XYZ'
-    },
-    {
-      date: '10/12/2024',
-      type: 'Financiamento Veicular',
-      amount: 'R$ 890,00',
-      status: 'paid' as const,
-      institution: 'Financeira ABC'
-    },
-    {
-      date: '05/12/2024',
-      type: 'Empréstimo Pessoal',
-      amount: 'R$ 1.200,00',
-      status: 'pending' as const,
-      institution: 'Banco DEF'
-    },
-    {
-      date: '28/11/2024',
-      type: 'Cartão de Crédito',
-      amount: 'R$ 3.100,00',
-      status: 'late' as const,
-      institution: 'Banco GHI'
-    }
-  ];
-
-  const handleSearch = (_searchCpf: string) => {
-    setShowResults(true);
-  };
-
   return (
-    <div className="min-h-screen bg-[#0b0b0f] relative">
-      {/* Badge para identificar a versão */}
-      <div className="fixed top-3 right-3 z-50">
-        <div className="px-3 py-1 rounded-full bg-purple-600/20 border border-purple-500/30 text-purple-200 text-xs font-medium backdrop-blur">
-          Versão 2 (Experimental)
-        </div>
-      </div>
-
-      {!showResults ? (
-        <>
-          <div className="relative">
-            <div className="absolute inset-0">
-              <img
-                src="/branding/bg-fundo.png"
-                alt=""
-                className="w-full h-full object-cover opacity-30"
-              />
-            </div>
-            <div className="absolute inset-0 bg-black/40"></div>
-            <Header />
-            <div className="container mx-auto px-4 pb-10 relative z-10">
-              <HeroSection onSearch={handleSearch} cpf={cpf} setCpf={setCpf} />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <EmotionalCopy />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <BenefitsSection />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <FeaturesSection />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <DataSourcesSection />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <ImportanceSection />
-            </div>
-          </div>
-
-          <div className="bg-[#0b0b0f]">
-            <div className="container mx-auto px-4">
-              <PricingSection />
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="relative min-h-screen">
-          <div className="absolute inset-0 bg-[#0b0b0f]" />
-          <Header />
-          <div className="container mx-auto px-4 pb-8 relative z-10">
-            <div className="space-y-6 pt-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-1">
-                  <GlassCard className="p-8 text-center">
-                    <h2 className="text-2xl font-bold text-white mb-6">Análise Completa</h2>
-                    <ScoreCircle score={742} size="lg" className="mx-auto mb-6" />
-                    <div className="space-y-2">
-                      <p className="text-purple-400 font-semibold">Score Bom</p>
-                      <p className="text-white/70 text-sm">
-                        Análise baseada em IA e Big Data
-                      </p>
-                    </div>
-                  </GlassCard>
-                </div>
-                <div className="lg:col-span-2">
-                  <QuickActions />
-                </div>
+    <div className="min-h-screen bg-[#0b0b0f] text-white">
+      <HeaderV2 />
+      <main>
+        <HeroV2 />
+        <section id="como-funciona" className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+                <div className="text-sm text-purple-300 mb-2">1. Consulta</div>
+                <h3 className="text-xl font-semibold mb-2">BC + Birôs</h3>
+                <p className="text-white/70">
+                  Buscamos as fontes mais relevantes (SCR do Banco Central e birôs) em segundos.
+                </p>
               </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <CreditAnalysis factors={creditFactors} />
-                <CreditHistory history={creditHistory} />
+              <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+                <div className="text-sm text-purple-300 mb-2">2. Análise</div>
+                <h3 className="text-xl font-semibold mb-2">IA prioriza o que importa</h3>
+                <p className="text-white/70">
+                  Sinais de risco organizados e ponderados para reduzir falsos positivos.
+                </p>
               </div>
+              <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+                <div className="text-sm text-purple-300 mb-2">3. Decisão</div>
+                <h3 className="text-xl font-semibold mb-2">Aprove com segurança</h3>
+                <p className="text-white/70">
+                  Recomendação clara, auditoria e histórico — com o menor custo por consulta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-              <GlassCard className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  🧠 Análise Inteligente por IA
+        <FeatureGridV2 />
+        <TestimonialsV2 />
+
+        <section id="contato" className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <div className="text-sm text-purple-300 mb-2">Pronto para reduzir prejuízos?</div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  Fale com um especialista e veja como funciona.
                 </h3>
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <p className="text-white/90 leading-relaxed">
-                    <strong className="text-purple-400">Resumo da Análise:</strong> O perfil analisado apresenta 
-                    características de baixo risco creditício. Com score de 742 pontos e histórico de pagamentos 
-                    consistente, recomenda-se aprovação para operações de crédito de até R$ 50.000. 
-                    A probabilidade de inadimplência calculada é de apenas 2.3%, significativamente abaixo 
-                    da média do mercado. Monitoramento recomendado devido ao aumento recente de consultas.
-                  </p>
-                </div>
-              </GlassCard>
-
-              <div className="text-center">
-                <Button
-                  onClick={() => {
-                    setShowResults(false);
-                    setCpf('');
-                  }}
-                  variant="outline"
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-                >
-                  Nova Consulta
+                <p className="text-white/70">
+                  Integração simples, resultado rápido e preço justo.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white h-12">
+                  <a href="https://wa.me/" target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+                </Button>
+                <Button variant="outline" className="h-12 border-white/20 text-white hover:bg-white/10" asChild>
+                  <a href="#como-funciona">Ver como funciona</a>
                 </Button>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </section>
+      </main>
+      <FooterV2 />
+      <FloatingContact />
     </div>
   );
 };
