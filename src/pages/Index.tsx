@@ -11,6 +11,7 @@ import CreditAnalysis from '@/components/CreditAnalysis';
 import CreditHistory from '@/components/CreditHistory';
 import QuickActions from '@/components/QuickActions';
 import PricingSection from '@/components/PricingSection';
+import EmotionalCopy from '@/components/EmotionalCopy';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
@@ -124,6 +125,13 @@ const Index = () => {
                   className="w-full rounded-2xl border border-white/20 shadow-2xl"
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Seção de copy direta */}
+          <div className="bg-white">
+            <div className="container mx-auto px-4">
+              <EmotionalCopy />
             </div>
           </div>
 

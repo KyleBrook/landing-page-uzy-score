@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Sparkles, Brain, Database, Shield, ArrowDown, CheckCircle } from 'lucide-react';
+import { Search, Sparkles, Brain, Database, Shield, CheckCircle, DollarSign } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface HeroSectionProps {
@@ -22,13 +22,6 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
     }
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="relative">
       {/* Hero em grid com mascote */}
@@ -37,20 +30,18 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
           {/* Badge superior */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8">
             <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-            <span className="text-white/90 text-sm font-medium">Análise de crédito em tempo real</span>
+            <span className="text-white/90 text-sm font-medium">Diminuir prejuízos é a nossa missão</span>
           </div>
           
           <h1 className="text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-            Análise de crédito com
+            Pare de perder dinheiro
             <br />
-            <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-              Inteligência Artificial
-            </span>
+            com crédito mal concedido.
           </h1>
           
           <p className="text-xl lg:text-2xl text-white/80 max-w-3xl mb-10 leading-relaxed font-light">
-            Transforme sua gestão de crédito com análises precisas em segundos. 
-            Mais de 400 fontes de dados integradas para decisões inteligentes.
+            Decida com segurança usando dados profundos do Banco Central e dos principais birôs de crédito,
+            cruzados por IA — com o menor custo do mercado.
           </p>
 
           {/* Features em destaque */}
@@ -65,13 +56,19 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
               <div className="w-10 h-10 bg-blue-400/20 rounded-full flex items-center justify-center">
                 <Database className="w-5 h-5 text-blue-400" />
               </div>
-              <span className="font-medium">+400 fontes de dados</span>
+              <span className="font-medium">Banco Central + birôs</span>
             </div>
             <div className="flex items-center gap-3 text-white/90">
               <div className="w-10 h-10 bg-purple-400/20 rounded-full flex items-center justify-center">
                 <Brain className="w-5 h-5 text-purple-400" />
               </div>
-              <span className="font-medium">98% de precisão</span>
+              <span className="font-medium">IA prioriza o que importa</span>
+            </div>
+            <div className="flex items-center gap-3 text-white/90">
+              <div className="w-10 h-10 bg-emerald-400/20 rounded-full flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-emerald-400" />
+              </div>
+              <span className="font-medium">Menor custo por consulta</span>
             </div>
           </div>
 
@@ -106,7 +103,7 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
                 
                 <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
                   <Shield className="w-4 h-4" />
-                  <span>Consulta segura e protegida</span>
+                  <span>Decisão segura, dados criptografados</span>
                 </div>
               </div>
             </CardContent>
@@ -116,15 +113,15 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
           <div className="flex flex-wrap items-center gap-8 text-white/70">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-emerald-400" />
+              <span>SCR do Banco Central</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-emerald-400" />
+              <span>Principais birôs do mercado</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-emerald-400" />
               <span>LGPD Compliance</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-emerald-400" />
-              <span>Dados Criptografados</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-emerald-400" />
-              <span>Certificação ISO</span>
             </div>
           </div>
         </div>

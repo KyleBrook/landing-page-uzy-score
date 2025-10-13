@@ -40,51 +40,51 @@ const FeaturesSection = () => {
 
   const tabContent = {
     motor: {
-      title: 'Motor de crédito inteligente',
-      subtitle: 'Decisões automatizadas com IA',
-      description: 'Com a tecnologia de Inteligência Artificial, o motor cruza dados de diferentes fontes para fazer recomendações ou até mesmo automatizar a concessão de crédito de acordo com parâmetros pré-estabelecidos, tornando esse processo mais confiável e ágil.',
+      title: 'Decida com segurança pelo menor custo',
+      subtitle: 'Banco Central + birôs de crédito analisados por IA',
+      description: 'Nossa IA cruza dados do SCR (Banco Central) e dos principais birôs do mercado para reduzir prejuízos e acelerar aprovações com confiança.',
       features: [
-        'Análise automatizada de risco em tempo real',
-        'Decisões baseadas em machine learning',
-        'Integração com principais bureaus de crédito',
-        'Parametrização personalizável por empresa',
+        'Análise automatizada de risco em segundos',
+        'Decisões baseadas nas fontes mais relevantes',
+        'Integração com bureaus líderes do mercado',
+        'Parametrização simples e transparente',
         'Histórico completo e auditoria de decisões'
       ]
     },
     plataforma: {
-      title: 'Plataforma Big Data + IA',
-      subtitle: 'Mais de 400 fontes integradas',
-      description: 'Plataforma de Big Data integrada à Inteligência Artificial para o segmento de crédito. Através da consulta de CNPJ ou nome de empresa, é possível ter de forma organizada todos os dados necessários para realizar sua análise de crédito completa.',
+      title: 'Visão única realmente relevante',
+      subtitle: 'Mais de 400 fontes, foco no que importa',
+      description: 'Uma plataforma que organiza, pondera e prioriza os dados que fazem diferença para sua decisão de crédito.',
       features: [
-        'Mais de 400 fontes de dados nacionais',
-        'Análise preditiva com algoritmos avançados',
-        'Dashboard em tempo real e personalizável',
-        'Relatórios detalhados e exportáveis',
-        'API robusta para integração completa'
+        'Consolidação de dados críticos do BC e birôs',
+        'Análise preditiva com IA',
+        'Dashboard em tempo real',
+        'Relatórios claros e exportáveis',
+        'API para integrar no seu fluxo'
       ]
     },
     monitoramento: {
-      title: 'Monitoramento inteligente',
-      subtitle: 'Proteção 24/7 da sua carteira',
-      description: 'Monitore automaticamente o pós-crédito de clientes, fornecedores, empresas e os mais diversos stakeholders que envolvem o seu negócio! A partir da criação de parâmetros, a plataforma monitora 100% da sua carteira.',
+      title: 'Reduza risco após a concessão',
+      subtitle: 'Alertas inteligentes 24/7',
+      description: 'Monitore automaticamente sua carteira e receba alertas de mudanças que podem comprometer o pagamento.',
       features: [
-        'Alertas automáticos de mudança de risco',
-        'Monitoramento contínuo 24 horas por dia',
-        'Análise comportamental avançada',
-        'Relatórios de performance detalhados',
-        'Gestão dinâmica de limites de crédito'
+        'Alertas de risco configuráveis',
+        'Monitoramento contínuo',
+        'Análise comportamental',
+        'Relatórios de performance',
+        'Gestão dinâmica de limites'
       ]
     },
     workflow: {
-      title: 'Workflow automatizado',
-      subtitle: 'Processos otimizados e centralizados',
-      description: 'Automatize tarefas manuais da sua gestão de crédito, centralize processos e conecte sua equipe em um só lugar, gerenciando com praticidade todos os fluxos de trabalho, processos e tarefas do seu negócio.',
+      title: 'Padronize e acelere o crédito',
+      subtitle: 'Processos claros e auditáveis',
+      description: 'Automatize etapas manuais, defina regras claras e conecte sua equipe em um só lugar.',
       features: [
-        'Fluxos de trabalho totalmente personalizáveis',
-        'Aprovações automáticas baseadas em regras',
-        'Notificações inteligentes e direcionadas',
-        'Auditoria completa de todos os processos',
-        'Integração nativa com sistemas existentes'
+        'Fluxos personalizáveis',
+        'Aprovações automáticas por regras',
+        'Notificações direcionadas',
+        'Auditoria completa',
+        'Integração nativa'
       ]
     }
   };
@@ -96,19 +96,18 @@ const FeaturesSection = () => {
     <section className="py-24">
       <div className="text-center mb-20">
         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-          <span className="text-white/90 text-sm font-medium">Soluções completas</span>
+          <span className="text-white/90 text-sm font-medium">Dados profundos para decisões melhores</span>
         </div>
         <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
-          Revolucione sua gestão de crédito com
+          Reduza prejuízos com
           <br />
-          <span className="text-emerald-400">inteligência artificial</span>
+          <span className="text-emerald-400">Banco Central + birôs + IA</span>
         </h2>
         <p className="text-xl text-white/80 max-w-3xl mx-auto">
-          Soluções integradas que transformam completamente sua operação de crédito
+          O que você precisa ver, em segundos — pelo menor custo por consulta.
         </p>
       </div>
 
-      {/* Tabs elegantes */}
       <div className="flex flex-wrap justify-center gap-4 mb-16">
         {tabs.map((tab) => (
           <Button
@@ -127,7 +126,6 @@ const FeaturesSection = () => {
         ))}
       </div>
 
-      {/* Content */}
       <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
         <CardContent className="p-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
