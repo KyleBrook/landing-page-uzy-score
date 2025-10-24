@@ -100,21 +100,27 @@ const PricingSection = () => {
         </p>
       </div>
 
-      <Card className="bg-purple-500/10 border border-purple-500/30">
-        <CardContent className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 p-6">
-          <div className="flex items-center gap-3 text-purple-100">
-            <Gift className="w-6 h-6" />
-            <div className="text-left">
-              <p className="text-sm uppercase tracking-wide text-purple-200/80">
+      <Card className="relative overflow-hidden border-0 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white shadow-lg">
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.5),transparent_55%)]" />
+        <CardContent className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8">
+          <div className="flex items-start gap-4">
+            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white/10 shrink-0">
+              <Gift className="w-7 h-7" />
+            </div>
+            <div>
+              <Badge className="mb-3 bg-white/15 text-white border-white/20 animate-pulse">
                 Promoção válida até 31/10
-              </p>
-              <p className="text-lg font-semibold">
+              </Badge>
+              <h3 className="text-2xl md:text-3xl font-semibold leading-snug">
                 Cadastre-se esta semana e ganhe cupons de 10, 20 ou 30 consultas gratuitas.
+              </h3>
+              <p className="mt-3 text-sm md:text-base text-white/80 max-w-xl">
+                Oferta exclusiva para novos cadastros realizados até 31 de outubro. Aproveite o bônus para testar o máximo de consultas sem custo adicional.
               </p>
             </div>
           </div>
-          <Button className="bg-purple-500 hover:bg-purple-600 text-white">
-            Quero aproveitar
+          <Button className="bg-white text-purple-600 hover:bg-white/90 shadow-md h-12 px-6">
+            Quero aproveitar agora
           </Button>
         </CardContent>
       </Card>
