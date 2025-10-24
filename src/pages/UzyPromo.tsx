@@ -11,7 +11,7 @@ import {
   FooterCpf,
 } from '../components/cpf';
 
-const Index = () => {
+const UzyPromo = () => {
   return (
     <div className="min-h-screen bg-[#05040a] text-white">
       <HeaderCpf />
@@ -30,4 +30,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default UzyPromo;
