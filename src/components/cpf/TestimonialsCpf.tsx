@@ -1,4 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { UserPlus, PhoneCall } from "lucide-react";
 
 const testimonials = [
   {
@@ -42,6 +44,41 @@ const TestimonialsCpf = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 text-center sm:p-8">
+          <h3 className="text-2xl font-semibold text-white">
+            Pronto para alcançar resultados semelhantes?
+          </h3>
+          <p className="max-w-2xl text-white/70">
+            Cadastre-se, teste o fluxo completo e veja como reduzir perdas com dados e IA do Uzy Score.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              className="h-12 min-w-[200px] bg-purple-600 text-white hover:bg-purple-700"
+            >
+              <a
+                href="https://uzyscore.com.br/auth/register"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                <UserPlus className="h-4 w-4" />
+                Criar conta agora
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 min-w-[200px] border-white/30 text-white hover:bg-white/10"
+            >
+              <a href="#contato" className="flex items-center justify-center gap-2">
+                <PhoneCall className="h-4 w-4" />
+                Falar com especialista
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

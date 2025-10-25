@@ -1,6 +1,13 @@
 import type { LucideIcon } from "lucide-react";
-import { DownloadCloud, BrainCircuit, CheckCircle2 } from "lucide-react";
+import {
+  DownloadCloud,
+  BrainCircuit,
+  CheckCircle2,
+  UserPlus,
+  PhoneCall,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 type Step = {
   icon: LucideIcon;
@@ -51,6 +58,46 @@ const HowWorksCpf = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/5 p-6 text-white sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-purple-200/80">
+              Quer ver na prática?
+            </p>
+            <h3 className="mt-3 text-2xl font-semibold">
+              Inicie agora com uma demonstração guiada.
+            </h3>
+            <p className="mt-2 text-white/70">
+              Entenda cada etapa da análise e descubra como integrar ao seu fluxo atual.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              className="h-12 min-w-[200px] bg-purple-600 text-white hover:bg-purple-700"
+            >
+              <a
+                href="https://uzyscore.com.br/auth/register"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                <UserPlus className="h-4 w-4" />
+                Criar conta agora
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 min-w-[200px] border-white/30 text-white hover:bg-white/10"
+            >
+              <a href="#contato" className="flex items-center justify-center gap-2">
+                <PhoneCall className="h-4 w-4" />
+                Falar com especialista
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
