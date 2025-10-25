@@ -1,4 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { UserPlus, PhoneCall } from "lucide-react";
 
 const stats = [
   {
@@ -34,6 +36,33 @@ const StatsCpf = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <Button
+            asChild
+            className="h-12 w-full sm:w-auto bg-purple-600 text-white hover:bg-purple-700"
+          >
+            <a
+              href="https://uzyscore.com.br/auth/register"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2"
+            >
+              <UserPlus className="h-4 w-4" />
+              Criar conta agora
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-12 w-full border-white/30 text-white hover:bg-white/10 sm:w-auto"
+          >
+            <a href="#contato" className="flex items-center justify-center gap-2">
+              <PhoneCall className="h-4 w-4" />
+              Falar com especialista
+            </a>
+          </Button>
         </div>
       </div>
     </section>
