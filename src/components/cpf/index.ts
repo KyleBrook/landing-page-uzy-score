@@ -1,0 +1,10 @@
+export { default as HeaderCpf } from "./HeaderCpf";
+export { default as HeroCpf } from "./HeroCpf";
+export { default as StatsCpf } from "./StatsCpf";
+export { default as BenefitsCpf } from "./BenefitsCpf";
+export { default as HowWorksCpf } from "./HowWorksCpf";
+export { default as HighlightsCpf } from "./HighlightsCpf";
+export { default as TestimonialsCpf } from "./TestimonialsCpf";
+export { default as FaqCpf } from "./FaqCpf";
+export { default as FinalCtaCpf } from "./FinalCtaCpf";
+export { default as FooterCpf } from "./FooterCpf";
