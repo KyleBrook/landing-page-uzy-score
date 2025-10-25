@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, UserPlus } from "lucide-react";
 
 const FinalCtaCpf = () => {
   return (
     <section id="contato" className="bg-[#060512] py-20">
       <div className="container mx-auto px-4">
-        <Card className="border-purple-500/30 bg-gradient-to-r from-purple-600/20 via-purple-500/15 to-purple-700/25 text-white">
+        <Card className="border border-white/10 bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white shadow-xl">
           <CardContent className="flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3">
               <p className="text-sm uppercase tracking-[0.3em] text-purple-200/80">
@@ -22,11 +22,15 @@ const FinalCtaCpf = () => {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 asChild
-                className="h-12 gap-2 bg-white text-purple-700 hover:bg-white/90"
+                className="h-12 gap-2 bg-white text-purple-800 hover:bg-white/90"
               >
-                <a href="https://wa.me/" target="_blank" rel="noreferrer">
-                  <Phone className="h-4 w-4" />
-                  Falar no WhatsApp
+                <a
+                  href="https://uzyscore.com.br/auth/register"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <UserPlus className="h-4 w-4" />
+                  Criar conta
                 </a>
               </Button>
               <Button
