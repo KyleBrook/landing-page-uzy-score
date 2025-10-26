@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Sparkles, Brain, Database, Shield, CheckCircle, DollarSign } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 interface HeroSectionProps {
   onSearch: (cpf: string) => void;
@@ -69,7 +69,7 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
           </div>
 
           <Card className="bg-neutral-900/90 backdrop-blur-sm border border-neutral-800 shadow-lg max-w-lg w-full mb-6">
-            <CardContent className="p-6">
+            <div className="p-6">
               <div className="space-y-5">
                 <div className="text-center mb-2">
                   <h3 className="text-xl font-bold text-white mb-1">Consulte agora</h3>
@@ -101,7 +101,7 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
                   <span>Decisão segura, dados criptografados</span>
                 </div>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
           <div className="flex flex-wrap items-center gap-6 text-white/70">
