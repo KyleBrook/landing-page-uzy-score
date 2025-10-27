@@ -8,6 +8,7 @@ import Promo from "./pages/Promo";
 import NotFound from "./pages/NotFound";
 import V2 from "./pages/V2";
 import Quiz from "./pages/Quiz";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/promo" element={<Promo />} />
           <Route path="/v2" element={<V2 />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
