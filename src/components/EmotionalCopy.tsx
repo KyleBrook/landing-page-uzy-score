@@ -88,8 +88,13 @@ const EmotionalCopy = () => {
                 <div className="text-purple-400 font-semibold">Recomendação: Aprovar</div>
                 <div className="text-white/60 text-sm mt-2">Tempo médio: 5s • Precisão: 98%</div>
               </div>
-              <Button className="w-full md:w-auto px-6 h-12 bg-purple-600 hover:bg-purple-700 text-white rounded-xl">
-                Começar agora
+              <Button
+                asChild
+                className="w-full md:w-auto px-6 h-12 bg-purple-600 hover:bg-purple-700 text-white rounded-xl"
+              >
+                <a href="https://wa.me/556136867068" target="_blank" rel="noreferrer">
+                  Começar agora
+                </a>
               </Button>
             </div>
           </div>
