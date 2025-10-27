@@ -34,11 +34,12 @@ import {
   ShieldCheck,
   Gauge,
   BarChart3,
-  Gamepad2,
   Trophy,
   ArrowLeft,
   ArrowRight,
   Flag,
+  Lock,
+  Sparkle,
 } from "lucide-react";
 
 const questionConfig = [
@@ -358,7 +359,7 @@ interface ResultSummary {
   classification: Classification;
 }
 
-type Step = "welcome" | "result" | number;
+type Step = number | "registration" | "result";
 
 const Quiz = () => {
   const [searchParams] = useSearchParams();
@@ -366,7 +367,7 @@ const Quiz = () => {
   const utmCampaign = searchParams.get("utm_campaign");
 
   const [result, setResult] = useState<ResultSummary | null>(null);
-  const [currentStep, setCurrentStep] = useState<Step>("welcome");
+  const [currentStep, setCurrentStep] = useState<Step>(0);
 
   const defaultValues = useMemo<QuizFormValues>(
     () => ({
@@ -388,16 +389,8 @@ const Quiz = () => {
 
   const answers = (form.watch("answers") ?? {}) as QuizFormValues["answers"];
 
-  const answeredQuestions = questionConfig.reduce((count, question, index) => {
-    const answerValue = answers[question.id as QuestionId];
-    if (!answerValue) {
-      return count;
-    }
-
-    // conta somente etapas anteriores ou a atual já concluída
-    return index < (typeof currentStep === "number" ? currentStep + 1 : questionConfig.length)
-      ? count + 1
-      : count;
+  const answeredQuestions = questionConfig.reduce((count, question) => {
+    return answers[question.id as QuestionId] ? count + 1 : count;
   }, 0);
 
   const partialWeight = questionConfig.reduce((total, question) => {
@@ -432,7 +425,7 @@ const Quiz = () => {
     },
     onSuccess: () => {
       toast.success(
-        "Respostas recebidas! Retornaremos com uma recomendação personalizada.",
+        "Respostas recebidas! Resultado liberado logo abaixo.",
       );
     },
     onError: (error: Error) => {
@@ -483,15 +476,16 @@ const Quiz = () => {
       classification,
     });
 
-    form.reset({
-      ...defaultValues,
-      answers: buildDefaultAnswers(),
-    });
-
     setCurrentStep("result");
   };
 
   const totalQuestions = questionConfig.length;
+  const phase: "question" | "registration" | "result" =
+    typeof currentStep === "number" ? "question" : currentStep;
+  const statusStep = typeof currentStep === "number" ? currentStep : totalQuestions;
+  const statusScore =
+    phase === "result" && result ? result.score : partialScore;
+
   const activeQuestion =
     typeof currentStep === "number" ? questionConfig[currentStep] : null;
   const questionFieldName: QuestionFieldName | null = activeQuestion
@@ -501,23 +495,19 @@ const Quiz = () => {
   const progressValue =
     typeof currentStep === "number"
       ? ((currentStep + 1) / totalQuestions) * 100
-      : 0;
-
-  const startQuiz = async () => {
-    const isValid = await form.trigger(["nome", "email", "whatsapp", "empresa"]);
-    if (isValid) {
-      setCurrentStep(0);
-      setResult(null);
-    }
-  };
+      : 100;
 
   const goToPreviousStep = () => {
+    if (currentStep === "registration") {
+      setCurrentStep(totalQuestions - 1);
+      return;
+    }
+
     if (typeof currentStep !== "number") {
       return;
     }
 
     if (currentStep === 0) {
-      setCurrentStep("welcome");
       return;
     }
 
@@ -539,22 +529,26 @@ const Quiz = () => {
       return;
     }
 
-    if (!createLead.isPending) {
-      await form.handleSubmit(onSubmit)();
+    setCurrentStep("registration");
+  };
+
+  const handleUnlockResult = async () => {
+    const isValid = await form.trigger(["nome", "email", "whatsapp", "empresa"]);
+    if (!isValid) {
+      return;
     }
+
+    await form.handleSubmit(onSubmit)();
   };
 
   const restartQuiz = () => {
     setResult(null);
-    setCurrentStep("welcome");
+    setCurrentStep(0);
     form.reset({
       ...defaultValues,
       answers: buildDefaultAnswers(),
     });
   };
-
-  const isFinalQuestion =
-    typeof currentStep === "number" && currentStep === totalQuestions - 1;
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-[#080810] via-[#0f0f1a] to-[#07070d] text-white">
@@ -565,262 +559,274 @@ const Quiz = () => {
       </div>
 
       <div className="relative z-10">
-        <section className="container mx-auto max-w-4xl px-4 py-16">
-          <Form {...form}>
-            {currentStep === "welcome" && (
-              <Card className="border-none bg-white/10 backdrop-blur">
-                <CardHeader className="space-y-4 text-center">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200">
-                    <Gamepad2 className="h-4 w-4" />
-                    Quiz Uzy Score · 5 fases
-                  </div>
-                  <CardTitle className="text-4xl font-bold leading-tight">
-                    Prepare-se para o desafio de crédito
-                  </CardTitle>
-                  <CardDescription className="text-base text-white/70">
-                    Preencha seus dados para registrar o resultado e desbloquear as perguntas.
-                    Responda como se estivesse analisando um cadastro real.
-                  </CardDescription>
-                </CardHeader>
+        <section className="container mx-auto max-w-4xl px-4 py-16 space-y-10">
+          <QuizGameStatus
+            totalQuestions={totalQuestions}
+            answeredQuestions={answeredQuestions}
+            currentStep={statusStep}
+            partialScore={statusScore}
+            phase={phase}
+          />
 
-                <CardContent className="space-y-6">
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <FormField
-                      control={form.control}
-                      name="nome"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm text-white/80">
-                            Nome completo
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Nome do solicitante"
-                              className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm text-white/80">E-mail</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="email"
-                              placeholder="contato@empresa.com"
-                              className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="whatsapp"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm text-white/80">WhatsApp</FormLabel>
-                          <FormControl>
-                            <Input
-                              value={formatWhatsapp(field.value)}
-                              onChange={(event) =>
-                                field.onChange(sanitizeWhatsapp(event.target.value))
-                              }
-                              onBlur={field.onBlur}
-                              placeholder="(11) 90000-0000"
-                              className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="empresa"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm text-white/80">
-                            Empresa (opcional)
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Razão social ou nome fantasia"
-                              className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/70 md:grid-cols-3">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-purple-300" />
-                      5 perguntas rápidas
+          {phase !== "result" && (
+            <Form {...form}>
+              {phase === "question" && activeQuestion && questionFieldName && (
+                <Card className="border-none bg-white/10 backdrop-blur">
+                  <CardHeader className="space-y-5">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                      <Badge className="w-fit bg-purple-500/20 text-purple-200">
+                        Pergunta {statusStep + 1} de {totalQuestions}
+                      </Badge>
+                      <div className="flex items-center gap-2 text-sm text-white/60">
+                        <Sparkles className="h-4 w-4 text-purple-300" />
+                        Desbloqueie todas para ver o resultado final
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="space-y-3">
+                      <Progress value={progressValue} className="h-2 bg-white/10" />
+                      <div className="flex flex-col gap-3">
+                        <h2 className="text-2xl font-semibold leading-tight text-white">
+                          {activeQuestion.title}
+                        </h2>
+                        <p className="text-sm text-white/70">
+                          {activeQuestion.description}
+                        </p>
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="space-y-6">
+                    <FormField
+                      control={form.control}
+                      name={questionFieldName}
+                      render={({ field }) => (
+                        <FormItem className="space-y-4">
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              value={field.value}
+                              className="grid gap-4 md:grid-cols-2"
+                            >
+                              {activeQuestion.options.map((option) => {
+                                const isSelected = field.value === option.value;
+                                return (
+                                  <label
+                                    key={option.value}
+                                    htmlFor={`${activeQuestion.id}-${option.value}`}
+                                    className={cn(
+                                      "flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-purple-400/50 hover:bg-purple-500/10",
+                                      isSelected &&
+                                        "border-purple-400 bg-purple-500/15 shadow-lg",
+                                    )}
+                                  >
+                                    <RadioGroupItem
+                                      value={option.value}
+                                      id={`${activeQuestion.id}-${option.value}`}
+                                      className="mt-1 border-white/40 text-purple-500 focus-visible:ring-purple-500 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-500"
+                                    />
+                                    <div className="space-y-2">
+                                      <p className="text-lg font-semibold text-white">
+                                        {option.label}
+                                      </p>
+                                      <p className="text-sm text-white/60">
+                                        {option.description}
+                                      </p>
+                                    </div>
+                                  </label>
+                                );
+                              })}
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </CardContent>
+
+                  <CardFooter className="flex flex-col gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
+                    <div className="flex items-center gap-2 text-sm text-white/60">
                       <ShieldCheck className="h-4 w-4 text-purple-300" />
-                      Dados protegidos e enviados ao Supabase
+                      Respostas salvas automaticamente.
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Gauge className="h-4 w-4 text-purple-300" />
-                      Resultado calculado na hora
+                    <div className="flex flex-col gap-3 md:flex-row">
+                      <Button
+                        variant="outline"
+                        onClick={goToPreviousStep}
+                        className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 md:w-auto"
+                      >
+                        <ArrowLeft className="mr-2 h-5 w-5" />
+                        Voltar
+                      </Button>
+                      <Button
+                        onClick={goToNextStep}
+                        disabled={!currentAnswer}
+                        className="w-full bg-purple-600 text-white hover:bg-purple-700 md:w-auto"
+                      >
+                        {statusStep === totalQuestions - 1 ? (
+                          <>
+                            Ir para cadastro
+                            <Flag className="ml-2 h-5 w-5" />
+                          </>
+                        ) : (
+                          <>
+                            Próxima fase
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </>
+                        )}
+                      </Button>
                     </div>
-                  </div>
-                </CardContent>
+                  </CardFooter>
+                </Card>
+              )}
 
-                <CardFooter className="flex flex-col items-center gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:justify-between">
-                  <div className="flex items-center gap-2 text-sm text-white/60">
-                    <BarChart3 className="h-4 w-4 text-purple-300" />
-                    Você verá uma recomendação baseada em IA ao final.
-                  </div>
-                  <Button
-                    onClick={startQuiz}
-                    className="h-12 min-w-[200px] bg-purple-600 text-base font-semibold text-white transition hover:bg-purple-700"
-                  >
-                    Começar o jogo
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </CardFooter>
-              </Card>
-            )}
+              {phase === "registration" && (
+                <Card className="border-none bg-white/10 backdrop-blur">
+                  <CardHeader className="space-y-5 text-center md:text-left">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200">
+                      <Lock className="h-4 w-4" />
+                      Resultado trancado — desbloqueie agora
+                    </div>
+                    <CardTitle className="text-3xl font-bold leading-tight">
+                      Só falta você registrar o resultado
+                    </CardTitle>
+                    <CardDescription className="text-white/70">
+                      Complete os dados abaixo para receber a recomendação final e salvarmos
+                      sua análise.
+                    </CardDescription>
+                  </CardHeader>
 
-            {typeof currentStep === "number" &&
-              activeQuestion &&
-              questionFieldName && (
-                <>
-                  <QuizGameStatus
-                    totalQuestions={totalQuestions}
-                    answeredQuestions={answeredQuestions}
-                    currentStep={currentStep}
-                    partialScore={partialScore}
-                  />
-
-                  <Card className="border-none bg-white/10 backdrop-blur">
-                    <CardHeader className="space-y-5">
-                      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                        <Badge className="w-fit bg-purple-500/20 text-purple-200">
-                          Pergunta {currentStep + 1} de {totalQuestions}
-                        </Badge>
-                        <div className="flex items-center gap-2 text-sm text-white/60">
-                          <Sparkles className="h-4 w-4 text-purple-300" />
-                          Desbloqueie todas para revelar o resultado
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <Progress value={progressValue} className="h-2 bg-white/10" />
-                        <div className="flex flex-col gap-3">
-                          <h2 className="text-2xl font-semibold leading-tight text-white">
-                            {activeQuestion.title}
-                          </h2>
-                          <p className="text-sm text-white/70">
-                            {activeQuestion.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardHeader>
-
-                    <CardContent className="space-y-6">
+                  <CardContent className="space-y-6">
+                    <div className="grid gap-4 md:grid-cols-2">
                       <FormField
                         control={form.control}
-                        name={questionFieldName}
+                        name="nome"
                         render={({ field }) => (
-                          <FormItem className="space-y-4">
+                          <FormItem>
+                            <FormLabel className="text-sm text-white/80">
+                              Nome completo
+                            </FormLabel>
                             <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                value={field.value}
-                                className="grid gap-4 md:grid-cols-2"
-                              >
-                                {activeQuestion.options.map((option) => {
-                                  const isSelected = field.value === option.value;
-                                  return (
-                                    <label
-                                      key={option.value}
-                                      htmlFor={`${activeQuestion.id}-${option.value}`}
-                                      className={cn(
-                                        "flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-purple-400/50 hover:bg-purple-500/10",
-                                        isSelected &&
-                                          "border-purple-400 bg-purple-500/15 shadow-lg",
-                                      )}
-                                    >
-                                      <RadioGroupItem
-                                        value={option.value}
-                                        id={`${activeQuestion.id}-${option.value}`}
-                                        className="mt-1 border-white/40 text-purple-500 focus-visible:ring-purple-500 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-500"
-                                      />
-                                      <div className="space-y-2">
-                                        <p className="text-lg font-semibold text-white">
-                                          {option.label}
-                                        </p>
-                                        <p className="text-sm text-white/60">
-                                          {option.description}
-                                        </p>
-                                      </div>
-                                    </label>
-                                  );
-                                })}
-                              </RadioGroup>
+                              <Input
+                                {...field}
+                                placeholder="Nome do solicitante"
+                                className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                    </CardContent>
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-sm text-white/80">
+                              E-mail
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="email"
+                                placeholder="contato@empresa.com"
+                                className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="whatsapp"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-sm text-white/80">
+                              WhatsApp
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                value={formatWhatsapp(field.value)}
+                                onChange={(event) =>
+                                  field.onChange(sanitizeWhatsapp(event.target.value))
+                                }
+                                onBlur={field.onBlur}
+                                placeholder="(11) 90000-0000"
+                                className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="empresa"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-sm text-white/80">
+                              Empresa (opcional)
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="Razão social ou nome fantasia"
+                                className="h-12 border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:border-purple-400 focus:ring-purple-400"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                    <CardFooter className="flex flex-col gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
-                      <div className="flex items-center gap-2 text-sm text-white/60">
+                    <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/70 md:grid-cols-3">
+                      <div className="flex items-center gap-2">
+                        <Sparkle className="h-4 w-4 text-purple-300" />
+                        5 perguntas concluídas
+                      </div>
+                      <div className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-purple-300" />
-                        Suas respostas ficam salvas para calcular o resultado final.
+                        Dados protegidos e enviados ao Supabase
                       </div>
-                      <div className="flex flex-col gap-3 md:flex-row">
-                        <Button
-                          variant="outline"
-                          onClick={goToPreviousStep}
-                          className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 md:w-auto"
-                        >
-                          <ArrowLeft className="mr-2 h-5 w-5" />
-                          Voltar
-                        </Button>
-                        <Button
-                          onClick={goToNextStep}
-                          disabled={!currentAnswer || createLead.isPending}
-                          className="w-full bg-purple-600 text-white hover:bg-purple-700 md:w-auto"
-                        >
-                          {createLead.isPending ? (
-                            "Calculando..."
-                          ) : isFinalQuestion ? (
-                            <>
-                              Revelar resultado
-                              <Flag className="ml-2 h-5 w-5" />
-                            </>
-                          ) : (
-                            <>
-                              Próxima pergunta
-                              <ArrowRight className="ml-2 h-5 w-5" />
-                            </>
-                          )}
-                        </Button>
+                      <div className="flex items-center gap-2">
+                        <Gauge className="h-4 w-4 text-purple-300" />
+                        Recomendação personalizada na hora
                       </div>
-                    </CardFooter>
-                  </Card>
-                </>
-              )}
-          </Form>
+                    </div>
+                  </CardContent>
 
-          {currentStep === "result" && result && (
-            <Card className="mt-12 border-none bg-white/10 backdrop-blur">
+                  <CardFooter className="flex flex-col gap-3 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
+                    <div className="flex items-center gap-2 text-sm text-white/60">
+                      <BarChart3 className="h-4 w-4 text-purple-300" />
+                      A análise ficará disponível para sua equipe.
+                    </div>
+                    <div className="flex flex-col gap-3 md:flex-row">
+                      <Button
+                        variant="outline"
+                        onClick={goToPreviousStep}
+                        disabled={createLead.isPending}
+                        className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 md:w-auto"
+                      >
+                        <ArrowLeft className="mr-2 h-5 w-5" />
+                        Voltar às perguntas
+                      </Button>
+                      <Button
+                        onClick={handleUnlockResult}
+                        disabled={createLead.isPending}
+                        className="w-full bg-purple-600 text-white hover:bg-purple-700 md:w-auto"
+                      >
+                        {createLead.isPending ? "Desbloqueando..." : "Desbloquear resultado"}
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
+              )}
+            </Form>
+          )}
+
+          {phase === "result" && result && (
+            <Card className="border-none bg-white/10 backdrop-blur">
               <CardHeader className="space-y-4 text-center">
                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-5 py-2 text-sm font-semibold text-emerald-200">
                   <Trophy className="h-4 w-4" />
@@ -873,7 +879,7 @@ const Quiz = () => {
               <CardFooter className="flex flex-col gap-3 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-2 text-sm text-white/60">
                   <BarChart3 className="h-4 w-4 text-purple-300" />
-                  Resultado enviado ao Supabase e disponível para análises futuras.
+                  Resultado salvo no Supabase para consultas futuras.
                 </div>
                 <Button
                   variant="outline"
