@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import {
   AlertTriangle,
-  ArrowRight,
   Check,
   Gift,
   Lightbulb,
@@ -33,69 +32,56 @@ const Promo = () => {
       </div>
 
       <div className="relative z-10">
-        <section className="container mx-auto max-w-5xl px-4 py-16 lg:py-24 space-y-8 text-center">
+        <section className="container mx-auto max-w-5xl px-4 py-16 lg:py-24 space-y-10 text-center">
           <Badge className="mx-auto flex w-fit items-center gap-2 bg-purple-500/20 text-purple-100">
             <Sparkles className="h-4 w-4" />
-            Consulta oficial, rápida e acessível
+            Consulta oficial com Inteligência Artificial
           </Badge>
 
           <div className="space-y-6">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Somos o Inibidor de Inadimplentes
+              Inibimos Inadimplentes
               <span className="block text-purple-300">
-                A consulta mais completa e mais barata do Brasil
+                A Consulta Mais Completa do Brasil
               </span>
             </h1>
 
             <p className="mx-auto max-w-3xl text-lg text-white/70">
-              Barre inadimplentes antes de fechar contrato — com relatório oficial do BACEN + perfil
-              socioeconômico completo. Informação real para decisão segura, sem planos caros obrigatórios.
+              Serasa + SCR Bacen + Perfil Socioeconômico + Análise preditiva com Inteligência Artificial.
+            </p>
+            <p className="mx-auto max-w-3xl text-lg text-white/70">
+              Garantimos melhor preço do Brasil em consultas.
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3 text-left">
-            <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <p className="text-base text-white/70">
+                Se ficou com dúvidas, liberamos 2 consultas grátis para novos membros.
+              </p>
               <Button
                 asChild
-                className="h-14 gap-2 rounded-xl bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+                className="h-12 rounded-xl bg-purple-600 px-6 text-white hover:bg-purple-700"
               >
-                <a href={`https://wa.me/?text=${whatsappPrefill}`} target="_blank" rel="noreferrer">
-                  <MessageCircle className="h-5 w-5" />
-                  💬 Quero consultar agora no WhatsApp
+                <a href="https://uzyscore.com.br/auth/register">
+                  Cadastrar na plataforma
                 </a>
               </Button>
-              <p className="text-sm text-white/70">
-                Prefill: “Olá! Quero testar o Uzy Score e começar com as 2 consultas grátis.”
-              </p>
             </div>
 
-            <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-              <Button
-                asChild
-                className="h-14 gap-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700"
-              >
-                <a href="/quiz?utm_source=promo&utm_campaign=cadastro_gratis">
-                  🟢 Cadastrar e ganhar 2 consultas grátis
-                </a>
-              </Button>
-              <p className="text-sm text-white/70">
-                Cadastro rápido e acesso imediato às suas 2 consultas gratuitas.
+            <div className="space-y-3">
+              <p className="text-base text-white/70">
+                Quer ganhar 30 consultas grátis?
               </p>
-            </div>
-
-            <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
               <Button
                 asChild
                 variant="outline"
-                className="h-14 gap-2 rounded-xl border-purple-400/40 bg-transparent text-white hover:bg-white/10"
+                className="h-12 rounded-xl border-purple-400/40 bg-transparent px-6 text-white hover:bg-white/10"
               >
-                <a href="/quiz?plan=pro&utm_source=promo&utm_campaign=plano_pro">
-                  🚀 Quero ganhar 30 consultas grátis (Plano PRO)
+                <a href="https://w.app/uzyscore" target="_blank" rel="noreferrer">
+                  Eu Quero
                 </a>
               </Button>
-              <p className="text-sm text-white/70">
-                Oferta exclusiva por tempo limitado.
-              </p>
             </div>
           </div>
         </section>
@@ -318,6 +304,18 @@ const Promo = () => {
             <p>© Uzy Score – uzy.com.br</p>
           </div>
         </footer>
+      </div>
+
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          asChild
+          className="h-12 rounded-full bg-emerald-500 px-5 text-emerald-950 shadow-lg shadow-emerald-500/40 hover:bg-emerald-400"
+        >
+          <a href="https://w.app/8gge13" target="_blank" rel="noreferrer">
+            <MessageCircle className="mr-2 h-5 w-5" />
+            Falar no WhatsApp
+          </a>
+        </Button>
       </div>
     </div>
   );
