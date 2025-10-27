@@ -26,6 +26,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import QuizGameStatus from "@/components/quiz/QuizGameStatus";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase";
 import {
@@ -385,6 +386,32 @@ const Quiz = () => {
     mode: "onChange",
   });
 
+  const answers = (form.watch("answers") ?? {}) as QuizFormValues["answers"];
+
+  const answeredQuestions = questionConfig.reduce((count, question, index) => {
+    const answerValue = answers[question.id as QuestionId];
+    if (!answerValue) {
+      return count;
+    }
+
+    // conta somente etapas anteriores ou a atual já concluída
+    return index < (typeof currentStep === "number" ? currentStep + 1 : questionConfig.length)
+      ? count + 1
+      : count;
+  }, 0);
+
+  const partialWeight = questionConfig.reduce((total, question) => {
+    const answerValue = answers[question.id as QuestionId];
+    if (!answerValue) {
+      return total;
+    }
+    const option = question.options.find((item) => item.value === answerValue);
+    return option ? total + option.weight : total;
+  }, 0);
+
+  const partialScore =
+    answeredQuestions > 0 ? Math.round((partialWeight / maxPossibleScore) * 100) : 0;
+
   const createLead = useMutation({
     mutationFn: async (payload: QuizLeadPayload) => {
       const { error } = await supabase.from("quiz_leads").insert({
@@ -416,7 +443,7 @@ const Quiz = () => {
   });
 
   const onSubmit = async (values: QuizFormValues) => {
-    const answers = questionConfig.map((question) => {
+    const answersList = questionConfig.map((question) => {
       const selectedOption = question.options.find(
         (option) => option.value === values.answers[question.id],
       );
@@ -434,7 +461,7 @@ const Quiz = () => {
       };
     });
 
-    const totalWeight = answers.reduce((total, answer) => total + answer.weight, 0);
+    const totalWeight = answersList.reduce((total, answer) => total + answer.weight, 0);
     const score = Math.round((totalWeight / maxPossibleScore) * 100);
     const classification = getClassification(score);
     const sanitizedWhatsapp = sanitizeWhatsapp(values.whatsapp);
@@ -444,7 +471,7 @@ const Quiz = () => {
       email: values.email.trim().toLowerCase(),
       whatsapp: sanitizedWhatsapp,
       empresa: values.empresa?.trim() ? values.empresa.trim() : null,
-      respostas: answers,
+      respostas: answersList,
       score,
       resultado: classification.label,
       utm_source: utmSource,
@@ -672,114 +699,123 @@ const Quiz = () => {
             {typeof currentStep === "number" &&
               activeQuestion &&
               questionFieldName && (
-                <Card className="mt-10 border-none bg-white/10 backdrop-blur">
-                  <CardHeader className="space-y-5">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <Badge className="w-fit bg-purple-500/20 text-purple-200">
-                        Pergunta {currentStep + 1} de {totalQuestions}
-                      </Badge>
-                      <div className="flex items-center gap-2 text-sm text-white/60">
-                        <Sparkles className="h-4 w-4 text-purple-300" />
-                        Desbloqueie todas para revelar o resultado
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <Progress value={progressValue} className="h-2 bg-white/10" />
-                      <div className="flex flex-col gap-3">
-                        <h2 className="text-2xl font-semibold leading-tight text-white">
-                          {activeQuestion.title}
-                        </h2>
-                        <p className="text-sm text-white/70">
-                          {activeQuestion.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardHeader>
+                <>
+                  <QuizGameStatus
+                    totalQuestions={totalQuestions}
+                    answeredQuestions={answeredQuestions}
+                    currentStep={currentStep}
+                    partialScore={partialScore}
+                  />
 
-                  <CardContent className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name={questionFieldName}
-                      render={({ field }) => (
-                        <FormItem className="space-y-4">
-                          <FormControl>
-                            <RadioGroup
-                              onValueChange={field.onChange}
-                              value={field.value}
-                              className="grid gap-4 md:grid-cols-2"
-                            >
-                              {activeQuestion.options.map((option) => {
-                                const isSelected = field.value === option.value;
-                                return (
-                                  <label
-                                    key={option.value}
-                                    htmlFor={`${activeQuestion.id}-${option.value}`}
-                                    className={cn(
-                                      "flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-purple-400/50 hover:bg-purple-500/10",
-                                      isSelected &&
-                                        "border-purple-400 bg-purple-500/15 shadow-lg",
-                                    )}
-                                  >
-                                    <RadioGroupItem
-                                      value={option.value}
-                                      id={`${activeQuestion.id}-${option.value}`}
-                                      className="mt-1 border-white/40 text-purple-500 focus-visible:ring-purple-500 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-500"
-                                    />
-                                    <div className="space-y-2">
-                                      <p className="text-lg font-semibold text-white">
-                                        {option.label}
-                                      </p>
-                                      <p className="text-sm text-white/60">
-                                        {option.description}
-                                      </p>
-                                    </div>
-                                  </label>
-                                );
-                              })}
-                            </RadioGroup>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </CardContent>
+                  <Card className="border-none bg-white/10 backdrop-blur">
+                    <CardHeader className="space-y-5">
+                      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                        <Badge className="w-fit bg-purple-500/20 text-purple-200">
+                          Pergunta {currentStep + 1} de {totalQuestions}
+                        </Badge>
+                        <div className="flex items-center gap-2 text-sm text-white/60">
+                          <Sparkles className="h-4 w-4 text-purple-300" />
+                          Desbloqueie todas para revelar o resultado
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <Progress value={progressValue} className="h-2 bg-white/10" />
+                        <div className="flex flex-col gap-3">
+                          <h2 className="text-2xl font-semibold leading-tight text-white">
+                            {activeQuestion.title}
+                          </h2>
+                          <p className="text-sm text-white/70">
+                            {activeQuestion.description}
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
 
-                  <CardFooter className="flex flex-col gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
-                    <div className="flex items-center gap-2 text-sm text-white/60">
-                      <ShieldCheck className="h-4 w-4 text-purple-300" />
-                      Suas respostas ficam salvas para calcular o resultado final.
-                    </div>
-                    <div className="flex flex-col gap-3 md:flex-row">
-                      <Button
-                        variant="outline"
-                        onClick={goToPreviousStep}
-                        className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 md:w-auto"
-                      >
-                        <ArrowLeft className="mr-2 h-5 w-5" />
-                        Voltar
-                      </Button>
-                      <Button
-                        onClick={goToNextStep}
-                        disabled={!currentAnswer || createLead.isPending}
-                        className="w-full bg-purple-600 text-white hover:bg-purple-700 md:w-auto"
-                      >
-                        {createLead.isPending ? (
-                          "Calculando..."
-                        ) : isFinalQuestion ? (
-                          <>
-                            Revelar resultado
-                            <Flag className="ml-2 h-5 w-5" />
-                          </>
-                        ) : (
-                          <>
-                            Próxima pergunta
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                          </>
+                    <CardContent className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name={questionFieldName}
+                        render={({ field }) => (
+                          <FormItem className="space-y-4">
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                className="grid gap-4 md:grid-cols-2"
+                              >
+                                {activeQuestion.options.map((option) => {
+                                  const isSelected = field.value === option.value;
+                                  return (
+                                    <label
+                                      key={option.value}
+                                      htmlFor={`${activeQuestion.id}-${option.value}`}
+                                      className={cn(
+                                        "flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-purple-400/50 hover:bg-purple-500/10",
+                                        isSelected &&
+                                          "border-purple-400 bg-purple-500/15 shadow-lg",
+                                      )}
+                                    >
+                                      <RadioGroupItem
+                                        value={option.value}
+                                        id={`${activeQuestion.id}-${option.value}`}
+                                        className="mt-1 border-white/40 text-purple-500 focus-visible:ring-purple-500 data-[state=checked]:border-purple-500 data-[state=checked]:bg-purple-500"
+                                      />
+                                      <div className="space-y-2">
+                                        <p className="text-lg font-semibold text-white">
+                                          {option.label}
+                                        </p>
+                                        <p className="text-sm text-white/60">
+                                          {option.description}
+                                        </p>
+                                      </div>
+                                    </label>
+                                  );
+                                })}
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
                         )}
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
+                      />
+                    </CardContent>
+
+                    <CardFooter className="flex flex-col gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
+                      <div className="flex items-center gap-2 text-sm text-white/60">
+                        <ShieldCheck className="h-4 w-4 text-purple-300" />
+                        Suas respostas ficam salvas para calcular o resultado final.
+                      </div>
+                      <div className="flex flex-col gap-3 md:flex-row">
+                        <Button
+                          variant="outline"
+                          onClick={goToPreviousStep}
+                          className="w-full border-white/20 bg-transparent text-white hover:bg-white/10 md:w-auto"
+                        >
+                          <ArrowLeft className="mr-2 h-5 w-5" />
+                          Voltar
+                        </Button>
+                        <Button
+                          onClick={goToNextStep}
+                          disabled={!currentAnswer || createLead.isPending}
+                          className="w-full bg-purple-600 text-white hover:bg-purple-700 md:w-auto"
+                        >
+                          {createLead.isPending ? (
+                            "Calculando..."
+                          ) : isFinalQuestion ? (
+                            <>
+                              Revelar resultado
+                              <Flag className="ml-2 h-5 w-5" />
+                            </>
+                          ) : (
+                            <>
+                              Próxima pergunta
+                              <ArrowRight className="ml-2 h-5 w-5" />
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </>
               )}
           </Form>
 
