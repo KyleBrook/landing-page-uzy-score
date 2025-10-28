@@ -241,65 +241,6 @@ const Promo = () => {
           </p>
         </section>
 
-        <section className="container mx-auto max-w-4xl px-4 py-16 space-y-6">
-          <Card className="border-white/10 bg-white/5">
-            <CardContent className="space-y-6 p-8 text-center">
-              <h2 className="text-3xl font-bold">Comece agora mesmo</h2>
-              <p className="text-white/70">
-                Escolha a forma mais conveniente para falar com a gente e testar o Uzy Score hoje.
-              </p>
-
-              <div className="grid gap-4 md:grid-cols-3 text-left">
-                <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <Button
-                    asChild
-                    className="h-12 gap-2 rounded-xl bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                  >
-                    <a href={`https://wa.me/?text=${whatsappPrefill}`} target="_blank" rel="noreferrer">
-                      <MessageCircle className="h-5 w-5" />
-                      Falar no WhatsApp
-                    </a>
-                  </Button>
-                  <p className="text-xs text-white/70">
-                    Atendimento imediato para liberar as 2 consultas grátis.
-                  </p>
-                </div>
-
-                <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <Button
-                    asChild
-                    className="h-12 gap-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700"
-                  >
-                    <a href="/quiz?utm_source=promo&utm_medium=cta_final">
-                      <Gift className="h-5 w-5" />
-                      Ganhar 2 consultas grátis
-                    </a>
-                  </Button>
-                  <p className="text-xs text-white/70">
-                    Acesso imediato ao painel e às suas consultas.
-                  </p>
-                </div>
-
-                <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="h-12 gap-2 rounded-xl border-purple-400/40 bg-transparent text-white hover:bg-white/10"
-                  >
-                    <a href="/quiz?plan=pro&utm_source=promo&utm_medium=cta_final">
-                      <Rocket className="h-5 w-5" />
-                      Plano PRO com 30 grátis
-                    </a>
-                  </Button>
-                  <p className="text-xs text-white/70">
-                    Ideal para operações que precisam de volume desde o início.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
         <footer className="container mx-auto max-w-4xl px-4 py-12 text-center text-sm text-white/60">
           <div className="space-y-2">
             <p>Relatórios integrados a bases públicas e privadas, com dados oficiais.</p>
