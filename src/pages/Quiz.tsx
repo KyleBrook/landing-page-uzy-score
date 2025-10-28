@@ -40,171 +40,204 @@ import {
   Flag,
   Lock,
   Sparkle,
+  MessageCircle,
 } from "lucide-react";
+
+const CTA_URL = "https://w.app/promolp";
 
 const questionConfig = [
   {
-    id: "paymentHistory",
-    title: "Como está o histórico de pagamentos do cliente?",
+    id: "creditProcess",
+    title: "Você faz análise de crédito antes de conceder prazo?",
     description:
-      "Considere pagamentos de empréstimos, cartões e financiamentos nos últimos 12 meses.",
+      "Entenda se já existe um processo estruturado para avaliar clientes antes de liberar vendas a prazo.",
     options: [
       {
-        value: "always_on_time",
-        label: "Sempre em dia",
-        description:
-          "Pagamentos realizados até a data de vencimento, sem atrasos.",
-        weight: 4,
-      },
-      {
-        value: "few_delays",
-        label: "Atrasos pontuais",
-        description:
-          "Até dois atrasos leves, todos regularizados rapidamente.",
+        value: "always_automated",
+        label: "Sempre (ferramenta automatizada)",
+        description: "Processo automático com ferramenta dedicada.",
         weight: 3,
       },
       {
-        value: "recurrent_delays",
-        label: "Atrasos recorrentes",
-        description: "Mais de dois atrasos e renegociações recentes.",
+        value: "always_manual",
+        label: "Sempre (manual / procedimento interno)",
+        description: "Processo interno documentado, mas feito manualmente.",
         weight: 2,
       },
       {
-        value: "serious_default",
-        label: "Débitos em aberto",
-        description: "Contas em atraso ainda não regularizadas ou negativadas.",
+        value: "sometimes",
+        label: "Às vezes / depende do cliente",
+        description: "Não há critério padrão, depende do relacionamento.",
+        weight: 1,
+      },
+      {
+        value: "never",
+        label: "Nunca",
+        description: "Concede prazo sem análise prévia.",
+        weight: 0,
+      },
+    ],
+  },
+  {
+    id: "portfolioSize",
+    title: "Quantos clientes com vendas a prazo você tem hoje?",
+    description:
+      "Quanto maior a carteira de clientes a prazo, maior a necessidade de processos estruturados.",
+    options: [
+      {
+        value: "up_to_20",
+        label: "Até 20",
+        description: "Carteira pequena de clientes a prazo.",
+        weight: 1,
+      },
+      {
+        value: "between_20_100",
+        label: "20–100",
+        description: "Carteira média; exige algum controle.",
+        weight: 2,
+      },
+      {
+        value: "more_than_100",
+        label: "Mais de 100",
+        description: "Carteira grande; necessidade de processos estruturados.",
+        weight: 3,
+      },
+    ],
+  },
+  {
+    id: "defaultRate",
+    title: "Qual porcentagem, em média, atrasa ou não paga?",
+    description:
+      "Percentual médio de inadimplência considerando atrasos e perdas.",
+    options: [
+      {
+        value: "zero_two",
+        label: "0–2%",
+        description: "Inadimplência residual.",
+        weight: 3,
+      },
+      {
+        value: "three_ten",
+        label: "3–10%",
+        description: "Controle razoável, mas com perdas pontuais.",
+        weight: 2,
+      },
+      {
+        value: "eleven_twentyfive",
+        label: "11–25%",
+        description: "Inadimplência relevante e crescente.",
+        weight: 1,
+      },
+      {
+        value: "over_twentyfive",
+        label: "Acima de 25%",
+        description: "Alto comprometimento do fluxo de caixa.",
+        weight: 0,
+      },
+    ],
+  },
+  {
+    id: "creditControl",
+    title: "Como você avalia seu controle atual de crédito?",
+    description:
+      "Qual o nível de estrutura e automação do processo que sustenta as decisões de crédito.",
+    options: [
+      {
+        value: "fully_automated",
+        label: "Muito bom / totalmente automatizado",
+        description: "Fluxo digital, regras claras e auditoria.",
+        weight: 3,
+      },
+      {
+        value: "partially_automated",
+        label: "Bom / parcialmente automatizado",
+        description: "Processo consistente com alguns recursos digitais.",
+        weight: 2,
+      },
+      {
+        value: "manual",
+        label: "Fraco / manual",
+        description: "Planilhas e controles pouco confiáveis.",
+        weight: 1,
+      },
+      {
+        value: "none",
+        label: "Não existe controle",
+        description: "Concede crédito sem qualquer política.",
+        weight: 0,
+      },
+    ],
+  },
+  {
+    id: "creditTools",
+    title: "Você já usa alguma plataforma de consulta de crédito?",
+    description:
+      "Determine o grau de maturidade no uso de ferramentas externas para apoio na decisão.",
+    options: [
+      {
+        value: "use_frequently",
+        label: "Sim — uso com frequência",
+        description: "Consultas recorrentes antes de liberar crédito.",
+        weight: 3,
+      },
+      {
+        value: "used_rarely",
+        label: "Já usei, mas parei / uso raramente",
+        description: "Consome consultas só em casos pontuais.",
+        weight: 1,
+      },
+      {
+        value: "never_used",
+        label: "Não, nunca usei",
+        description: "Depende apenas de percepção/perfilamento manual.",
+        weight: 0,
+      },
+    ],
+  },
+  {
+    id: "ticketSize",
+    title: "Qual o ticket médio das suas vendas a prazo?",
+    description:
+      "Quanto maior o ticket, maior a exposição a perdas por cliente inadimplente.",
+    options: [
+      {
+        value: "above_5000",
+        label: "Acima de R$5.000",
+        description: "Operações de alto valor; exposição elevada.",
+        weight: 3,
+      },
+      {
+        value: "between_500_5000",
+        label: "R$500–R$5.000",
+        description: "Operações medianas; risco moderado por cliente.",
+        weight: 2,
+      },
+      {
+        value: "up_to_500",
+        label: "Até R$500",
+        description: "Tickets pequenos; menor exposição por cliente.",
         weight: 1,
       },
     ],
   },
   {
-    id: "debtLevel",
-    title: "Qual é o nível de endividamento atual?",
+    id: "openToCall",
+    title:
+      "Você quer receber um diagnóstico gratuito e uma consulta de demonstração?",
     description:
-      "Compare o valor total de dívidas com a renda ou faturamento mensal.",
+      "Vamos entender se deseja que nossa equipe comercial entre em contato.",
     options: [
       {
-        value: "below_30",
-        label: "Até 30% da renda/faturamento",
-        description: "Comprometimento saudável e controlado.",
-        weight: 4,
-      },
-      {
-        value: "between_30_60",
-        label: "Entre 30% e 60%",
-        description: "Ainda confortável, mas requer atenção.",
-        weight: 3,
-      },
-      {
-        value: "between_60_90",
-        label: "Entre 60% e 90%",
-        description: "Endividamento alto, risco de estresse financeiro.",
-        weight: 2,
-      },
-      {
-        value: "above_90",
-        label: "Acima de 90%",
-        description: "Comprometimento extremo da renda.",
+        value: "yes",
+        label: "Sim, quero a consulta gratuita",
+        description: "Deseja falar com o time comercial.",
         weight: 1,
       },
-    ],
-  },
-  {
-    id: "incomeStability",
-    title: "Como você avalia a estabilidade de renda/faturamento?",
-    description:
-      "Considere a previsibilidade de entradas e continuidade do negócio.",
-    options: [
       {
-        value: "very_stable",
-        label: "Alta estabilidade",
-        description:
-          "Receitas recorrentes e previsíveis nos últimos 12 meses.",
-        weight: 4,
-      },
-      {
-        value: "stable",
-        label: "Estável",
-        description: "Oscilações leves, sem impacto relevante no fluxo de caixa.",
-        weight: 3,
-      },
-      {
-        value: "volatile",
-        label: "Volátil",
-        description: "Oscilações frequentes e grandes variações mensais.",
-        weight: 2,
-      },
-      {
-        value: "unpredictable",
-        label: "Imprevisível",
-        description:
-          "Dependência de contratos pontuais ou sazonalidade extrema.",
-        weight: 1,
-      },
-    ],
-  },
-  {
-    id: "creditUsage",
-    title: "Como está o uso atual de limites de crédito?",
-    description:
-      "Observe a utilização de cartões, linhas e cheque especial.",
-    options: [
-      {
-        value: "below_30_usage",
-        label: "Até 30% utilizado",
-        description: "Uso saudável com folga para emergências.",
-        weight: 4,
-      },
-      {
-        value: "between_30_70_usage",
-        label: "Entre 30% e 70%",
-        description: "Uso moderado, exige acompanhamento.",
-        weight: 3,
-      },
-      {
-        value: "between_70_90_usage",
-        label: "Entre 70% e 90%",
-        description: "Uso alto, reduz margem de segurança.",
-        weight: 2,
-      },
-      {
-        value: "maxed_out",
-        label: "Acima de 90% / no limite",
-        description:
-          "Limites quase esgotados ou recorrência no cheque especial.",
-        weight: 1,
-      },
-    ],
-  },
-  {
-    id: "businessBehavior",
-    title: "Existe histórico recente de ocorrências negativas?",
-    description:
-      "Inclua protestos, ações judiciais, restrições ou apontamentos em birôs.",
-    options: [
-      {
-        value: "no_incidents",
-        label: "Nenhum registro negativo",
-        description: "Sem apontamentos ou ações nos últimos 24 meses.",
-        weight: 4,
-      },
-      {
-        value: "old_incidents",
-        label: "Ocorrências antigas",
-        description: "Registros com mais de 12 meses, já regularizados.",
-        weight: 3,
-      },
-      {
-        value: "recent_incidents",
-        label: "Ocorrências recentes",
-        description: "Protestos ou ações nos últimos 12 meses.",
-        weight: 2,
-      },
-      {
-        value: "active_restrictions",
-        label: "Restrições ativas",
-        description: "Negativações ou ações em andamento sem solução.",
-        weight: 1,
+        value: "no",
+        label: "Não agora",
+        description: "Prefere seguir sem contato.",
+        weight: 0,
       },
     ],
   },
@@ -215,48 +248,42 @@ type QuestionFieldName = `answers.${QuestionId}`;
 
 const classificationConfig = [
   {
-    label: "Excelente",
-    minScore: 85,
-    badgeClass: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30",
-    description: "Perfil muito sólido e baixa probabilidade de inadimplência.",
-    recommendations: [
-      "Mantenha a disciplina de pagamentos e monitore consultas.",
-      "Considere aumentar limites com segurança controlada.",
-      "Use monitoração automática para preservar o perfil.",
-    ],
-  },
-  {
-    label: "Bom",
-    minScore: 65,
-    badgeClass: "bg-blue-500/15 text-blue-300 border border-blue-500/30",
-    description: "Risco baixo, com pontos de atenção administráveis.",
-    recommendations: [
-      "Reforce a reserva para evitar uso excessivo de crédito.",
-      "Negocie melhores taxas aproveitando o bom desempenho.",
-      "Acompanhe indicadores críticos mensalmente.",
-    ],
-  },
-  {
-    label: "Moderado",
-    minScore: 45,
-    badgeClass: "bg-yellow-500/15 text-yellow-200 border border-yellow-500/30",
+    label: "Baixo Risco",
+    minScore: 71,
+    badgeClass: "bg-emerald-500/15 text-emerald-200 border-emerald-500/30",
     description:
-      "Risco intermediário, precisa de ajustes antes de aprovações maiores.",
+      "✅ Seu controle de crédito parece eficiente. A Uzy Score pode otimizar e escalar esse processo — ganhe 1 consulta extra para revisar sua política de crédito.",
+    ctaLabel: "Receber recomendações para otimização",
     recommendations: [
-      "Reduza o uso dos limites e renegocie dívidas caras.",
-      "Crie plano de regularização para ocorrências recentes.",
-      "Monitore novos apontamentos em tempo real.",
+      "Automatize auditorias e distribua regras em toda a equipe.",
+      "Compare seus resultados com benchmarks do setor para buscar eficiência.",
+      "Use consultas estratégicas para validar alterações nas políticas atuais.",
     ],
   },
   {
-    label: "Crítico",
-    minScore: 0,
-    badgeClass: "bg-red-500/15 text-red-300 border border-red-500/30",
-    description: "Alto risco de inadimplência. Evite concessões sem garantias.",
+    label: "Médio Risco",
+    minScore: 36,
+    badgeClass: "bg-amber-500/15 text-amber-200 border-amber-500/30",
+    description:
+      "🔶 Você tem algum controle, mas há lacunas que aumentam o risco. A Uzy Score pode ajudar a automatizar e reduzir a inadimplência — agende uma demonstração gratuita.",
+    ctaLabel: "Agendar demonstração gratuita",
     recommendations: [
-      "Solicite garantias adicionais ou avalista com bom histórico.",
-      "Priorize a regularização dos débitos em aberto.",
-      "Implemente monitoramento diário até estabilizar o perfil.",
+      "Mapeie onde estão os gargalos de análise manual e automatize essas etapas.",
+      "Implemente regras mínimas de crédito para a carteira de maior valor.",
+      "Ative alertas inteligentes para reagir a inadimplência antes de virar perda.",
+    ],
+  },
+  {
+    label: "Alto Risco",
+    minScore: 0,
+    badgeClass: "bg-red-500/15 text-red-200 border-red-500/30",
+    description:
+      "⚠️ Seu nível de exposição à inadimplência é ALTO. Recomendamos interromper vendas a prazo para clientes sem análise e agendar uma consulta gratuita com a Uzy Score agora.",
+    ctaLabel: "Marcar consulta urgente (grátis)",
+    recommendations: [
+      "Estruture imediatamente uma política mínima de crédito para novos clientes.",
+      "Revise a carteira atual e renegocie operações críticas.",
+      "Implemente monitoramento diário com consultas oficiais antes de liberar prazo.",
     ],
   },
 ] as const;
@@ -424,9 +451,7 @@ const Quiz = () => {
       }
     },
     onSuccess: () => {
-      toast.success(
-        "Respostas recebidas! Resultado liberado logo abaixo.",
-      );
+      toast.success("Respostas recebidas! Resultado liberado logo abaixo.");
     },
     onError: (error: Error) => {
       toast.error(
@@ -455,8 +480,8 @@ const Quiz = () => {
     });
 
     const totalWeight = answersList.reduce((total, answer) => total + answer.weight, 0);
-    const score = Math.round((totalWeight / maxPossibleScore) * 100);
-    const classification = getClassification(score);
+    const scorePercent = Math.round((totalWeight / maxPossibleScore) * 100);
+    const classification = getClassification(scorePercent);
     const sanitizedWhatsapp = sanitizeWhatsapp(values.whatsapp);
 
     await createLead.mutateAsync({
@@ -465,14 +490,14 @@ const Quiz = () => {
       whatsapp: sanitizedWhatsapp,
       empresa: values.empresa?.trim() ? values.empresa.trim() : null,
       respostas: answersList,
-      score,
+      score: scorePercent,
       resultado: classification.label,
       utm_source: utmSource,
       utm_campaign: utmCampaign,
     });
 
     setResult({
-      score,
+      score: scorePercent,
       classification,
     });
 
@@ -783,7 +808,7 @@ const Quiz = () => {
                     <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/70 md:grid-cols-3">
                       <div className="flex items-center gap-2">
                         <Sparkle className="h-4 w-4 text-purple-300" />
-                        5 perguntas concluídas
+                        7 perguntas concluídas
                       </div>
                       <div className="flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-purple-300" />
@@ -833,7 +858,7 @@ const Quiz = () => {
                   Resultado desbloqueado
                 </div>
                 <CardTitle className="text-3xl font-bold text-white">
-                  Recomendação do motor de crédito
+                  Nível de Risco e Recomendação
                 </CardTitle>
                 <CardDescription className="text-white/70">
                   Resultado calculado com base nas suas respostas e ponderado pelo nosso motor.
@@ -845,7 +870,7 @@ const Quiz = () => {
                   <div className="flex flex-col items-center">
                     <span className="text-sm text-white/60">Pontuação estimada</span>
                     <span className="text-5xl font-extrabold text-white">
-                      {result.score}
+                      {result.score}%
                     </span>
                   </div>
                   <Badge
@@ -876,18 +901,29 @@ const Quiz = () => {
                 </div>
               </CardContent>
 
-              <CardFooter className="flex flex-col gap-3 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
+              <CardFooter className="flex flex-col gap-4 border-t border-white/10 bg-white/5 p-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-2 text-sm text-white/60">
                   <BarChart3 className="h-4 w-4 text-purple-300" />
                   Resultado salvo no Supabase para consultas futuras.
                 </div>
-                <Button
-                  variant="outline"
-                  onClick={restartQuiz}
-                  className="border-white/20 bg-transparent text-white hover:bg-white/10"
-                >
-                  Jogar novamente
-                </Button>
+                <div className="flex flex-col gap-3 md:flex-row">
+                  <Button
+                    className="flex items-center justify-center gap-2 bg-purple-600 text-white hover:bg-purple-700"
+                    asChild
+                  >
+                    <a href={CTA_URL} target="_blank" rel="noreferrer">
+                      <MessageCircle className="h-5 w-5" />
+                      {result.classification.ctaLabel}
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={restartQuiz}
+                    className="border-white/20 bg-transparent text-white hover:bg-white/10"
+                  >
+                    Jogar novamente
+                  </Button>
+                </div>
               </CardFooter>
             </Card>
           )}
