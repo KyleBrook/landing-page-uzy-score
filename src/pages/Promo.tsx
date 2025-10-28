@@ -175,18 +175,21 @@ const Promo = () => {
         </section>
 
         <section className="container mx-auto max-w-4xl px-4 py-16">
-          <Card className="border-emerald-400/30 bg-gradient-to-r from-emerald-500/20 via-purple-500/20 to-purple-400/20">
-            <CardHeader className="space-y-4 text-center">
+          <Card className="relative overflow-hidden border border-purple-500/40 bg-neutral-900/95">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.45),_rgba(76,201,240,0.12),transparent)] opacity-90" />
+            <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-purple-500/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 -right-28 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl" />
+            <CardHeader className="relative space-y-4 text-center">
               <Badge className="mx-auto bg-red-500/30 text-red-100">
                 🎁 Oferta especial
               </Badge>
               <CardTitle className="text-3xl font-bold text-white">
                 🔥 Promoção da Semana
               </CardTitle>
-              <CardDescription className="text-lg text-white/80">
+              <CardDescription className="text-lg text-white/75">
                 Cadastre-se agora e ganhe 2 consultas gratuitas para testar a plataforma.
                 E se você quiser um plano maior, ganhe 30 consultas grátis de boas-vindas!
-                <span className="block font-semibold text-white mt-3">Não perca — é por tempo limitado.</span>
+                <span className="mt-3 block font-semibold text-white">Não perca — é por tempo limitado.</span>
               </CardDescription>
             </CardHeader>
           </Card>
