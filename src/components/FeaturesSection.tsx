@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import IsometricIllustration from './IsometricIllustration';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const FeaturesSection = () => {
   const [activeTab, setActiveTab] = useState('motor');
 
@@ -150,9 +152,11 @@ const FeaturesSection = () => {
                 ))}
               </div>
 
-              <Button className="mt-6 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg">
-                Saiba mais
-                <ArrowRight className="w-5 h-5 ml-2" />
+              <Button className="mt-6 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg" asChild>
+                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                  Saiba mais
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
               </Button>
             </div>
             

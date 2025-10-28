@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import GlassCard from './GlassCard';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 p-4">
@@ -28,11 +30,15 @@ const Header = () => {
           </div>
           
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-              <Bell className="w-5 h-5" />
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" asChild>
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                <Bell className="w-5 h-5" />
+              </a>
             </Button>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-              <User className="w-5 h-5" />
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" asChild>
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                <User className="w-5 h-5" />
+              </a>
             </Button>
           </div>
         </div>

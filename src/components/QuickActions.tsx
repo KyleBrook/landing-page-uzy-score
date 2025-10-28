@@ -2,6 +2,8 @@ import { CreditCard, FileText, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GlassCard from './GlassCard';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const QuickActions = () => {
   const actions = [
     {
@@ -40,16 +42,19 @@ const QuickActions = () => {
             key={index}
             variant="ghost"
             className="h-auto p-4 justify-start bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl"
+            asChild
           >
-            <div className="flex items-center gap-3 w-full">
-              <div className={`p-2 rounded-lg bg-white/10 ${action.color}`}>
-                <action.icon className="w-5 h-5" />
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="w-full">
+              <div className="flex items-center gap-3 w-full">
+                <div className={`p-2 rounded-lg bg-white/10 ${action.color}`}>
+                  <action.icon className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <h4 className="font-medium text-white">{action.title}</h4>
+                  <p className="text-white/60 text-sm">{action.description}</p>
+                </div>
               </div>
-              <div className="text-left">
-                <h4 className="font-medium text-white">{action.title}</h4>
-                <p className="text-white/60 text-sm">{action.description}</p>
-              </div>
-            </div>
+            </a>
           </Button>
         ))}
       </div>

@@ -14,6 +14,8 @@ import PricingSection from '@/components/PricingSection';
 import EmotionalCopy from '@/components/EmotionalCopy';
 import { Button } from '@/components/ui/button';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const Index = () => {
   const [cpf, setCpf] = useState('');
   const [showResults, setShowResults] = useState(false);
@@ -206,14 +208,13 @@ const Index = () => {
               {/* Botão para nova consulta */}
               <div className="text-center">
                 <Button
-                  onClick={() => {
-                    setShowResults(false);
-                    setCpf('');
-                  }}
                   variant="outline"
                   className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  asChild
                 >
-                  Nova Consulta
+                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                    Nova Consulta
+                  </a>
                 </Button>
               </div>
             </div>

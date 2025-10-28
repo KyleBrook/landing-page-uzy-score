@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const PricingSection = () => {
   const subscriptionPlans = [
     {
@@ -118,8 +120,10 @@ const PricingSection = () => {
                   </p>
                 </div>
 
-                <Button className={`w-full mb-4 ${plan.popular ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}>
-                  Escolher Plano
+                <Button className={`w-full mb-4 ${plan.popular ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`} asChild>
+                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                    Escolher Plano
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -148,8 +152,10 @@ const PricingSection = () => {
                   <p className="text-gray-500 text-sm mb-4">
                     {plan.consultations} consulta{plan.consultations > 1 ? 's' : ''} • R$ {plan.pricePerConsultation.toFixed(2)} cada
                   </p>
-                  <Button variant="outline" size="sm" className="w-full border-gray-200 text-gray-700 hover:bg-gray-50">
-                    Comprar
+                  <Button variant="outline" size="sm" className="w-full border-gray-200 text-gray-700 hover:bg-gray-50" asChild>
+                    <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                      Comprar
+                    </a>
                   </Button>
                 </div>
               </CardContent>

@@ -9,16 +9,12 @@ interface HeroSectionProps {
   setCpf: (cpf: string) => void;
 }
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
   const formatCPF = (value: string) => {
     const numbers = value.replace(/\D/g, '');
     return numbers.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-  };
-
-  const handleSearch = () => {
-    if (cpf.length >= 11) {
-      onSearch(cpf);
-    }
   };
 
   return (
@@ -88,12 +84,13 @@ const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
                 </div>
                 
                 <Button
-                  onClick={handleSearch}
-                  disabled={cpf.length < 11}
                   className="w-full h-12 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg"
+                  asChild
                 >
-                  <Search className="w-5 h-5 mr-2" />
-                  Analisar Perfil de Crédito
+                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                    <Search className="w-5 h-5 mr-2" />
+                    Analisar Perfil de Crédito
+                  </a>
                 </Button>
                 
                 <div className="flex items-center justify-center gap-2 text-white/50 text-sm">

@@ -2,6 +2,8 @@ import { AlertTriangle, Shield, Database, DollarSign, CheckCircle } from 'lucide
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
+const WHATSAPP_URL = "https://w.app/promolp";
+
 const EmotionalCopy = () => {
   return (
     <section className="py-16">
@@ -92,7 +94,7 @@ const EmotionalCopy = () => {
                 asChild
                 className="w-full md:w-auto px-6 h-12 bg-purple-600 hover:bg-purple-700 text-white rounded-xl"
               >
-                <a href="https://wa.me/556136867068" target="_blank" rel="noreferrer">
+                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
                   Começar agora
                 </a>
               </Button>
