@@ -13,7 +13,6 @@ import {
   Gift,
   Lightbulb,
   MessageCircle,
-  Rocket,
   Shield,
   Sparkles,
 } from "lucide-react";
@@ -55,34 +54,54 @@ const Promo = () => {
           </div>
 
           <div className="space-y-8">
-            <div className="space-y-3">
+            <div className="space-y-4">
               <p className="text-base text-white/70">
-                Se ficou com dúvidas, liberamos 2 consultas grátis para novos membros.
+                Faça 2 consultas gratuitas para conhecer a plataforma.
               </p>
+              <div className="flex justify-center">
+                <Badge className="bg-emerald-500/15 text-emerald-100 border border-emerald-500/40 px-4 py-2 text-sm font-semibold">
+                  Use o cupom: <span className="ml-1 text-emerald-200">UZY2</span>
+                </Badge>
+              </div>
               <Button
                 asChild
                 className="h-12 rounded-xl bg-purple-600 px-6 text-white hover:bg-purple-700"
               >
                 <a href="https://uzyscore.com.br/auth/register">
-                  Cadastrar na plataforma
+                  Conhecer relatório Uzy
                 </a>
               </Button>
             </div>
 
-            <div className="space-y-3">
-              <p className="text-base text-white/70">
-                Quer ganhar 30 consultas grátis?
-              </p>
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 rounded-xl border-purple-400/40 bg-transparent px-6 text-white hover:bg-white/10"
-              >
-                <a href="https://w.app/uzyscore" target="_blank" rel="noreferrer">
-                  Eu Quero
-                </a>
-              </Button>
-            </div>
+            <Card className="border-none bg-gradient-to-r from-purple-600/40 via-purple-500/30 to-emerald-500/20 shadow-lg">
+              <CardContent className="flex flex-col items-center gap-4 px-6 py-6 md:flex-row md:justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="rounded-2xl bg-white/20 p-3">
+                    <Gift className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-white/70">
+                      Bônus exclusivo de novembro
+                    </p>
+                    <h3 className="text-2xl font-bold text-white">
+                      Assine um plano Enterprise e ganhe +30 consultas extras
+                    </h3>
+                    <p className="text-sm text-white/80">
+                      Oferta válida durante novembro para turbinar sua operação de crédito.
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  className="border-white/40 bg-white/10 text-white hover:bg-white/20"
+                  asChild
+                >
+                  <a href="https://w.app/promolp" target="_blank" rel="noreferrer">
+                    Falar com vendas
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -120,7 +139,7 @@ const Promo = () => {
         </section>
 
         <section className="container mx-auto max-w-5xl px-4 py-16 space-y-8">
-          <h2 className="text-center text-3xl font-bold">Por que o Uzy Score é indispensável?</h2>
+          <h2 className="text-center text-3xl font-bold">Porque a Uzy é diferente?</h2>
 
           <div className="grid gap-4 md:grid-cols-2">
             {[
@@ -129,6 +148,7 @@ const Promo = () => {
               "Informações de protestos, ações e cheques sem fundo",
               "Score de crédito real, limite presumido e faturamento estimado",
               "Interface simples, consulta em segundos, e sem planos forçados",
+              "O menor valor do Brasil, justo pra não ser custo pesado na sua operação",
             ].map((benefit) => (
               <div
                 key={benefit}
@@ -174,7 +194,7 @@ const Promo = () => {
           </div>
         </section>
 
-        <section className="container mx-auto max-w-4xl px-4 py-16">
+        <section className="container mx-auto max-w-4xl px-4 py-16 space-y-10">
           <Card className="relative overflow-hidden border border-purple-500/40 bg-neutral-900/95">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.45),_rgba(76,201,240,0.12),transparent)] opacity-90" />
             <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-purple-500/25 blur-3xl" />
@@ -196,12 +216,25 @@ const Promo = () => {
         </section>
 
         <section className="container mx-auto max-w-3xl px-4 py-12 text-center">
-          <p className="text-base text-white/70">
-            Sem contratos longos. Sem letras miúdas.
-            <span className="block font-semibold text-white mt-2">
-              Use quando quiser, pague só o que usar.
-            </span>
-          </p>
+          <div className="space-y-4 text-white/70">
+            <p className="text-lg">
+              Estamos no WhatsApp para condições especiais ou tirar dúvidas sobre a plataforma.
+            </p>
+            <p className="font-semibold text-white">
+              Clique no botão abaixo e fale com nosso time agora mesmo.
+            </p>
+          </div>
+          <div className="mt-6 flex justify-center">
+            <Button
+              variant="outline"
+              className="h-12 rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20"
+              asChild
+            >
+              <a href="https://w.app/8gge13" target="_blank" rel="noreferrer">
+                Falar com o time no WhatsApp
+              </a>
+            </Button>
+          </div>
         </section>
 
         <section
