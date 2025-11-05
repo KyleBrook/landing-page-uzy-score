@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import GlassCard from './GlassCard';
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const Header = () => {
   return (

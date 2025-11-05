@@ -2,7 +2,45 @@ import { AlertTriangle, Shield, Database, DollarSign, CheckCircle } from 'lucide
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
+
+const EmotionalCopy = () => {
+  return (
+    <section className="py-16">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-purple-500/10 text-purple-300 rounded-full px-4 py-2 mb-4 border border-purple-500/20">
+            <span className="text-sm font-medium">Nosso objetivo é simples</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+            Diminuir prejuízos por crédito mal concedido.
+          </h2>
+          <p className="text-lg text-white/70 mt-3">
+            Informações mais profundas e relevantes do Banco Central e dos principais birôs, cruzadas por IA, pelo menor custo do mercado.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card className="bg-neutral-900 border border-neutral-800">
+            <CardContent className="p-6">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">A dor</h3>
+              <p className="text-white/70">
+                Inadimplência e cadastros aprovados sem visão completa geram perdas que poderiam ser evitadas.
+              </p>
+            </CardContent>
+          </Card>
+
+        ... (continue)Todos os links de contato com o time agora apontam para https://wa.me/556136867068 em Header, HeroSection, EmotionalCopy, QuickActions, FeaturesSection, Index e V2.Vou deixar todas as seções que ainda apontavam para o link antigo usando o novo número do WhatsApp. Atualizei os componentes EmotionalCopy, QuickActions, FeaturesSection e as páginas Index e V2 para usar https://wa.me/556136867068.
+
+<dyad-write path="src/components/EmotionalCopy.tsx" description="Atualizando link de contato via WhatsApp.">
+import { AlertTriangle, Shield, Database, DollarSign, CheckCircle } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const EmotionalCopy = () => {
   return (

@@ -2,7 +2,7 @@ import { CreditCard, FileText, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GlassCard from './GlassCard';
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const QuickActions = () => {
   const actions = [

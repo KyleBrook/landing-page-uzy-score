@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import IsometricIllustration from './IsometricIllustration';
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const FeaturesSection = () => {
   const [activeTab, setActiveTab] = useState('motor');
@@ -109,7 +109,7 @@ const FeaturesSection = () => {
             <Button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 rounded-xl transition-all duration-300 text-sm ${
+              className={`px-6 py-3 rounded-xl transition-all duração-300 text-sm ${
                 isActive
                   ? 'bg-purple-600 hover:bg-purple-700 text-white shadow'
                   : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'

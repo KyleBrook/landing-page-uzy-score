@@ -14,7 +14,7 @@ import PricingSection from '@/components/PricingSection';
 import EmotionalCopy from '@/components/EmotionalCopy';
 import { Button } from '@/components/ui/button';
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const Index = () => {
   const [cpf, setCpf] = useState('');
@@ -149,7 +149,7 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Pricing Section - deixamos como contraste claro controlado */}
+          {/* Pricing Section - destaque para teste gratuito */}
           <div className="bg-[#0b0b0f]">
             <div className="container mx-auto px-4">
               <PricingSection />

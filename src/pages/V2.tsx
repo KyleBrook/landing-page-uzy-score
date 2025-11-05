@@ -14,6 +14,8 @@ import PricingSection from '@/components/PricingSection';
 import EmotionalCopy from '@/components/EmotionalCopy';
 import { Button } from '@/components/ui/button';
 
+const WHATSAPP_URL = "https://wa.me/556136867068";
+
 const V2 = () => {
   const [cpf, setCpf] = useState('');
   const [showResults, setShowResults] = useState(false);

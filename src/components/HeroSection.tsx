@@ -9,7 +9,7 @@ interface HeroSectionProps {
   setCpf: (cpf: string) => void;
 }
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const WHATSAPP_URL = "https://wa.me/556136867068";
 
 const HeroSection = ({ onSearch, cpf, setCpf }: HeroSectionProps) => {
   const formatCPF = (value: string) => {
