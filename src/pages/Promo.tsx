@@ -96,7 +96,7 @@ const Promo = () => {
                   className="border-white/40 bg-white/10 text-white hover:bg-white/20"
                   asChild
                 >
-                  <a href="https://w.app/promolp" target="_blank" rel="noreferrer">
+                  <a href="https://wa.me/556136867068" target="_blank" rel="noreferrer">
                     Falar com vendas
                   </a>
                 </Button>
@@ -230,7 +230,7 @@ const Promo = () => {
               className="h-12 rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20"
               asChild
             >
-              <a href="https://w.app/8gge13" target="_blank" rel="noreferrer">
+              <a href="https://wa.me/556136867068" target="_blank" rel="noreferrer">
                 Falar com o time no WhatsApp
               </a>
             </Button>
@@ -288,7 +288,7 @@ const Promo = () => {
           asChild
           className="h-12 rounded-full bg-emerald-500 px-5 text-emerald-950 shadow-lg shadow-emerald-500/40 hover:bg-emerald-400"
         >
-          <a href="https://w.app/8gge13" target="_blank" rel="noreferrer">
+          <a href="https://wa.me/556136867068" target="_blank" rel="noreferrer">
             <MessageCircle className="mr-2 h-5 w-5" />
             Falar no WhatsApp
           </a>
