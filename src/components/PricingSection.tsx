@@ -1,227 +1,108 @@
-import { Check, Star, Zap, Building, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, Check, Gift, Shield, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
-const WHATSAPP_URL = "https://w.app/promolp";
+const FREE_TRIAL_URL = "https://uzyscore.com.br/auth/register";
+const WHATSAPP_URL = "https://wa.me/556136867068";
+
+const highlights = [
+  "Primeiras consultas por nossa conta",
+  "Relatório completo com dados oficiais do Bacen",
+  "IA priorizando os riscos realmente relevantes",
+];
+
+const benefits = [
+  "Configuração rápida: consulte em poucos minutos",
+  "Sem custo fixo para começar — teste sem compromisso",
+  "Equipe disponível no WhatsApp para acompanhar você",
+];
 
 const PricingSection = () => {
-  const subscriptionPlans = [
-    {
-      name: 'Starter',
-      consultations: 10,
-      price: 115,
-      pricePerConsultation: 11.5,
-      popular: false
-    },
-    {
-      name: 'Popular',
-      consultations: 20,
-      price: 189,
-      pricePerConsultation: 9.45,
-      popular: true
-    },
-    {
-      name: 'Professional',
-      consultations: 30,
-      price: 229,
-      pricePerConsultation: 7.63,
-      popular: false
-    }
-  ];
-
-  const payPerUsePlans = [
-    {
-      name: 'Consulta Avulsa',
-      consultations: 1,
-      price: 25.90,
-      pricePerConsultation: 25.90
-    },
-    {
-      name: 'Pacote Básico',
-      consultations: 5,
-      price: 119,
-      pricePerConsultation: 23.8
-    },
-    {
-      name: 'Pacote Intermediário',
-      consultations: 10,
-      price: 189.90,
-      pricePerConsultation: 18.90
-    },
-    {
-      name: 'Pacote Avançado',
-      consultations: 20,
-      price: 250,
-      pricePerConsultation: 12.5
-    },
-    {
-      name: 'Pacote Empresarial',
-      consultations: 50,
-      price: 450,
-      pricePerConsultation: 9
-    }
-  ];
-
-  const pfFeatures = [
-    'Score SCR completo',
-    'Classificação de risco detalhada',
-    'Análise de inadimplência',
-    'Composição da carteira de crédito',
-    'Análise inteligente com IA',
-    'Resumo detalhado personalizado'
-  ];
-
-  const pjFeatures = [
-    'Dados empresariais completos',
-    'Perfil financeiro detalhado',
-    'Score de crédito empresarial',
-    'Indicadores de negócio',
-    'Quadro de funcionários',
-    'Análise completa por IA',
-    'Avaliação de risco empresarial'
-  ];
-
   return (
-    <div className="space-y-12 py-20">
-      {/* Seção de Assinaturas */}
-      <div>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Planos de <span className="text-emerald-600">Assinatura</span>
-          </h2>
-          <p className="text-gray-600 mb-2">Pagamento apenas por cartão de crédito</p>
-          <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200">
-            Consultas Ilimitadas por Mês
+    <section className="py-20">
+      <div className="mx-auto flex max-w-4xl flex-col gap-10">
+        <div className="text-center space-y-4">
+          <Badge className="mx-auto flex w-fit items-center gap-2 bg-purple-500/15 text-purple-100">
+            <Sparkles className="h-4 w-4" />
+            Teste gratuito liberado
           </Badge>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {subscriptionPlans.map((plan, index) => (
-            <Card key={index} className={`relative border-0 shadow-lg ${plan.popular ? 'ring-2 ring-emerald-500' : ''}`}>
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-emerald-500 text-white">
-                    <Star className="w-3 h-3 mr-1" />
-                    Mais Popular
-                  </Badge>
-                </div>
-              )}
-              
-              <CardContent className="p-6">
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                  <div className="mb-2">
-                    <span className="text-3xl font-bold text-emerald-600">R$ {plan.price}</span>
-                    <span className="text-gray-500">/mês</span>
-                  </div>
-                  <p className="text-gray-500 text-sm">
-                    {plan.consultations} consultas • R$ {plan.pricePerConsultation.toFixed(2)} por consulta
-                  </p>
-                </div>
-
-                <Button className={`w-full mb-4 ${plan.popular ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`} asChild>
-                  <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                    Escolher Plano
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Seção Pay-per-Use */}
-      <div>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Consultas <span className="text-blue-600">Avulsas</span>
+          <h2 className="text-4xl font-bold text-white leading-tight">
+            Teste o Uzy Score sem pagar nada
           </h2>
-          <p className="text-gray-600">Pague apenas pelo que usar</p>
+          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+            Cadastre-se, rode suas primeiras consultas gratuitamente e veja o relatório mais completo do Brasil em ação. O investimento só começa quando você decidir continuar.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {payPerUsePlans.map((plan, index) => (
-            <Card key={index} className="border-0 shadow-md">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <h4 className="font-semibold text-gray-900 mb-2">{plan.name}</h4>
-                  <div className="mb-2">
-                    <span className="text-2xl font-bold text-blue-600">R$ {plan.price}</span>
-                  </div>
-                  <p className="text-gray-500 text-sm mb-4">
-                    {plan.consultations} consulta{plan.consultations > 1 ? 's' : ''} • R$ {plan.pricePerConsultation.toFixed(2)} cada
-                  </p>
-                  <Button variant="outline" size="sm" className="w-full border-gray-200 text-gray-700 hover:bg-gray-50" asChild>
-                    <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                      Comprar
-                    </a>
-                  </Button>
+        <Card className="border border-purple-500/40 bg-purple-500/10">
+          <CardContent className="flex flex-col items-center gap-6 px-6 py-8 text-center">
+            <div className="flex items-center gap-3 text-purple-200">
+              <Gift className="h-6 w-6" />
+              <span className="text-sm font-semibold uppercase tracking-wide">
+                Oferta de lançamento
+              </span>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-2xl font-bold text-white">
+                Primeiras consultas 100% gratuitas
+              </h3>
+              <p className="text-white/70">
+                Ative o cupom e receba duas consultas para testar toda a plataforma com dados reais.
+              </p>
+            </div>
+            <Badge className="bg-emerald-500/15 text-emerald-100 border border-emerald-400/40 px-4 py-2 text-sm font-semibold">
+              Use o cupom: <span className="ml-2 text-emerald-200">UZY2</span>
+            </Badge>
+            <div className="flex flex-col gap-3 text-left text-white/80 sm:flex-row sm:text-center">
+              {highlights.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2"
+                >
+                  <Check className="h-4 w-4 text-emerald-300" />
+                  <span className="text-sm">{item}</span>
                 </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {benefits.map((benefit) => (
+            <Card key={benefit} className="border border-white/10 bg-white/5">
+              <CardContent className="flex h-full flex-col gap-4 p-6">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/15 text-purple-200">
+                  <Shield className="h-5 w-5" />
+                </span>
+                <p className="text-sm text-white/80">{benefit}</p>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Button
+            asChild
+            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            <a href={FREE_TRIAL_URL} target="_blank" rel="noreferrer">
+              Criar minha conta grátis
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </a>
+          </Button>
+          <Button
+            variant="outline"
+            asChild
+            className="w-full sm:w-auto border-white/30 bg-transparent text-white hover:bg-white/10"
+          >
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+              Falar com especialista
+            </a>
+          </Button>
+        </div>
       </div>
-
-      {/* Recursos PF e PJ */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="border-0 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-emerald-100">
-                <User className="w-6 h-6 text-emerald-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Pessoa Física (PF)</h3>
-            </div>
-            
-            <div className="space-y-3">
-              {pfFeatures.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                  <span className="text-gray-700">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-0 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-blue-100">
-                <Building className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Pessoa Jurídica (PJ)</h3>
-            </div>
-            
-            <div className="space-y-3">
-              {pjFeatures.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Em Breve */}
-      <Card className="border-0 shadow-lg">
-        <CardContent className="p-6 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Zap className="w-6 h-6 text-yellow-500" />
-            <h3 className="text-xl font-bold text-gray-900">Em Breve</h3>
-          </div>
-          <p className="text-gray-600">
-            <strong className="text-yellow-600">Negativação de CPF e CNPJ no Serasa</strong>
-            <br />
-            Proteja-se contra fraudes com nosso sistema de negativação integrado
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+    </section>
   );
 };
 
