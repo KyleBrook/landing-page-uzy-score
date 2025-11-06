@@ -460,7 +460,7 @@ const Quiz = () => {
     },
   });
 
-  const onSubmit = async (values: QuizFormValues) => {
+  const onSubmit = (values: QuizFormValues) => {
     const answersList = questionConfig.map((question) => {
       const selectedOption = question.options.find(
         (option) => option.value === values.answers[question.id],
@@ -484,7 +484,7 @@ const Quiz = () => {
     const classification = getClassification(scorePercent);
     const sanitizedWhatsapp = sanitizeWhatsapp(values.whatsapp);
 
-    await createLead.mutateAsync({
+    const payload: QuizLeadPayload = {
       nome: values.nome.trim(),
       email: values.email.trim().toLowerCase(),
       whatsapp: sanitizedWhatsapp,
@@ -494,7 +494,7 @@ const Quiz = () => {
       resultado: classification.label,
       utm_source: utmSource,
       utm_campaign: utmCampaign,
-    });
+    };
 
     setResult({
       score: scorePercent,
@@ -502,6 +502,7 @@ const Quiz = () => {
     });
 
     setCurrentStep("result");
+    createLead.mutate(payload);
   };
 
   const totalQuestions = questionConfig.length;
@@ -563,7 +564,7 @@ const Quiz = () => {
       return;
     }
 
-    await form.handleSubmit(onSubmit)();
+    form.handleSubmit(onSubmit)();
   };
 
   const restartQuiz = () => {
